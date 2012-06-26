@@ -2,11 +2,11 @@
 Contributors: marc
 Tags: multilanguage, network
 Donate link: http://DeMomentSomTres.com
+Version: 1.0
 Requires at least: 3.2.1
 Tested up to: 3.4
 Stable tag: trunk
 License: GPLv2 or later
-Version: 1.0
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
 
