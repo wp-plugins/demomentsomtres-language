@@ -26,7 +26,7 @@ You need to assure that your main blog is not used because of the blog forced pr
 
 =1.0=
 
-Added to wordpress.org subversion plugin
+Added to wordpress.org subversion
 
 =0.8=
 
