@@ -340,7 +340,7 @@ function QuBicIdioma_obtenir_posttype_a_traduir($post_type) {
     $valor = '';
     //if (isset($opcions)):
     if(is_array($opcions)):
-        echo '<pre>|';print_r($opcions);echo '|</pre>';
+//        echo '<pre>|';print_r($opcions);echo '|</pre>';
         if (array_key_exists($nom_opcio, $opcions)):
             $valor = $opcions[$nom_opcio];
         endif;
