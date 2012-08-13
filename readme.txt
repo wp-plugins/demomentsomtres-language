@@ -1,6 +1,6 @@
 === DeMomentSomTres Language ===
-Contributors: marc
-Tags: multilanguage, network
+Contributors: marcqueralt
+Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
 Version: 1.0
 Requires at least: 3.2.1
