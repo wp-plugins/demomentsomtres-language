@@ -76,9 +76,10 @@ function QuBicIdioma_obtenir_opcions_bloc($blog_id) {
  * @param string $domain blog's domain
  * @param string $path blog's path
  * @return string
+ * @since 1.0.2
  */
 function QuBicIdioma_crearURL($domain, $path) {
-    return 'http://' . $domain . '/' . $path;
+    return 'http://' . $domain . $path;
 }
 
 /**

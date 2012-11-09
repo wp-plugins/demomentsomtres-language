@@ -4,10 +4,10 @@
  * @package QuBic_Idioma
  */
 /*
-  Plugin Name: DeMomentSomTres_Language
+  Plugin Name: DeMomentSomTres Language
   Plugin URI: http://www.DeMomentSomTres.com/catala
   Description: QuBic_DeMomentSomTres allows to have different instances of a blog using different languages on a network installation.
-  Version: 1.0.1
+  Version: 1.0.2
   Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com
   License: GPLv2 or later
