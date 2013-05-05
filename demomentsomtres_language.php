@@ -7,7 +7,7 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://www.DeMomentSomTres.com/catala
   Description: QuBic_DeMomentSomTres allows to have different instances of a blog using different languages on a network installation.
-  Version: 1.0.2
+  Version: 1.1
   Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com
   License: GPLv2 or later
@@ -38,7 +38,8 @@ define( 'QBC_IDIOMA_PREFIX','QuBicIdioma_relation-');
 
 require_once QBC_IDIOMA_PLUGIN_PATH . 'functions.php';
 require_once QBC_IDIOMA_PLUGIN_PATH . 'admin.php';
-require_once QBC_IDIOMA_PLUGIN_PATH.'widgets.php';
+require_once QBC_IDIOMA_PLUGIN_PATH . 'widgets.php';
+require_once QBC_IDIOMA_PLUGIN_PATH . 'language-detection.php';
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) )
