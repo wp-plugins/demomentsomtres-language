@@ -348,7 +348,8 @@ function QuBicIdioma_obtenir_posttype_a_traduir($post_type) {
             $valor = $opcions[$nom_opcio];
         endif;
     endif;
-    $result = ('on' == $valor);
+//    $result = ('on' == $valor); /* v1.1.5 bug */
+    $result = (1 == $valor);
     return $result;
 }
 

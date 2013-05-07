@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.1
+Version: 1.1.5
 Requires at least: 3.2.1
 Tested up to: 3.4
 Stable tag: trunk
@@ -23,22 +23,25 @@ Upload the DeMomentSomTres Idioma plugin.
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
 == Changelog ==
+=1.1.5=
+
+* bug: post language selector shown even if post type is not translatable.
 
 =1.1=
 
-*Landing site mode: allows to jump to the other sites based on the browser language
+* Landing site mode: allows to jump to the other sites based on the browser language
 
 =1.0.2=
 
-*Duplicate '/' sign in address solved
+* Duplicate '/' sign in address solved
 
 =1.0.1=
 
-Debugging mistake solved
+* Debugging mistake solved
 
 =1.0=
 
-Added to wordpress.org subversion
+* Added to wordpress.org subversion
 
 =0.8=
 
