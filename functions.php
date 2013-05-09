@@ -427,13 +427,26 @@ function demomentsomtres_language_destination() {
     $blocsActius = QuBicIdioma_obtenir_blocs_actius();
     $browserLang = getDefaultLanguage();
     $destination = $defaultSite;
+    $found = false;
     foreach ($blocsActius as $blog):
         $langs = explode(",", $blog['browser_langs']);
         if (in_array($browserLang, $langs, true)):
             $destination = $blog['details']->siteurl;
+            $found = true;
             break;
         endif;
     endforeach;
+    if (!$found):
+        $browserLang=  substr($browserLang, 0,2);
+        foreach ($blocsActius as $blog):
+            $langs = explode(",", $blog['browser_langs']);
+            if (in_array($browserLang, $langs, true)):
+                $destination = $blog['details']->siteurl;
+                $found = true;
+                break;
+            endif;
+        endforeach;
+    endif;
     return $destination;
 }
 
@@ -441,18 +454,20 @@ function demomentsomtres_language_destination() {
  * 
  * @return boolean
  */
-function demomentsomtres_language_isLanding() { 
+function demomentsomtres_language_isLanding() {
     $options = get_option(QBC_IDIOMA_OPTIONS);
     return isset($options['landing_mode']);
 }
+
 /**
  * Redirects based on browser language
  * @since 1.1
  */
 function demomentsomtres_language_redirect() {
-    if(demomentsomtres_language_isLanding()):
+    if (demomentsomtres_language_isLanding()):
         exit(wp_redirect(demomentsomtres_language_destination()));
     endif;
 }
-add_action('template_redirect','demomentsomtres_language_redirect');
+
+add_action('template_redirect', 'demomentsomtres_language_redirect');
 ?>
