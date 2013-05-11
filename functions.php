@@ -464,10 +464,11 @@ function demomentsomtres_language_isLanding() {
  * @since 1.1
  */
 function demomentsomtres_language_redirect() {
+    if(is_admin()):
+        return;
+    endif;
     if (demomentsomtres_language_isLanding()):
         exit(wp_redirect(demomentsomtres_language_destination()));
     endif;
 }
-
-add_action('template_redirect', 'demomentsomtres_language_redirect');
 ?>

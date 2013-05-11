@@ -47,6 +47,8 @@ if ( !function_exists( 'add_action' ) )
     echo "Hi there!  I'm just a plugin, not much I can do when called directly.";
     exit;
 }
+//add_action('template_redirect', 'demomentsomtres_language_redirect');//12.23s
+add_action('plugins_loaded', 'demomentsomtres_language_redirect',0);//10.91s
 
 load_plugin_textdomain( QBC_IDIOMA_TEXT_DOMAIN, false, QBC_IDIOMA_PLUGIN_URL . '/languages' );
 add_action( 'init', 'QuBicIdioma_init' );
