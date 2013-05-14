@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.1.7 
+Version: 1.1.8 
 Requires at least: 3.2.1
 Tested up to: 3.5.1
 Stable tag: trunk

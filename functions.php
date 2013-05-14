@@ -25,6 +25,7 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
             'details' => $detalls,
             'default_site' => isset($opcions['default_site']) ? true : false,
             'browser_langs' => isset($opcions['browser_langs']) ? $opcions['browser_langs'] : '',
+            'landing' => isset($opcions['landing_mode']) ? true : false, /* 1.1.8 */
         );
     endforeach;
     $compare = makeSortFunction($criteri);
@@ -38,7 +39,8 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
  * @return boolean
  */
 function QuBicIdioma_es_bloc_actiu($a) {
-    return $a['actiu'];
+//    echo '<pre>';print_r($a);echo '</pre>';
+    return $a['actiu']&&!$a['landing'];
 }
 
 /**
@@ -348,8 +350,9 @@ function QuBicIdioma_obtenir_posttype_a_traduir($post_type) {
             $valor = $opcions[$nom_opcio];
         endif;
     endif;
-//    $result = ('on' == $valor); /* v1.1.5 bug */
-    $result = (1 == $valor);
+    $result = ('on' == $valor); /* v1.1.5 bug */
+//    $result = (1 == $valor);    /* v1.1.6 bug */
+//    $result = isset($valor);
     return $result;
 }
 
@@ -447,6 +450,7 @@ function demomentsomtres_language_destination() {
             endif;
         endforeach;
     endif;
+    $destination.='/'; /* to skip one redirection */
     return $destination;
 }
 

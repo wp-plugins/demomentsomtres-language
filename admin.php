@@ -108,10 +108,11 @@ function QuBicIdioma_admin_section_config_text() {
     } else {
         echo "<p>" . _e('This is not a landing site.', QBC_IDIOMA_TEXT_DOMAIN) . "</p>";
     }
-//    echo "<p><pre>";
-//    print_r($options);
+    echo "<p><pre>";
+    $options = get_option(QBC_IDIOMA_OPTIONS);
+    print_r($options);
 //    print_r(QuBicIdioma_obtenir_blocs());
-//    echo "</pre></p>";
+    echo "</pre></p>";
 }
 
 /**
