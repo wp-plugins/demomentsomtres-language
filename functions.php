@@ -450,7 +450,8 @@ function demomentsomtres_language_destination() {
             endif;
         endforeach;
     endif;
-    $destination.='/'; /* to skip one redirection */
+//    $destination.='/'; /* to skip one redirection */
+    $destination.=$_SERVER['REQUEST_URI']; /*1.1.9*/
     return $destination;
 }
 
