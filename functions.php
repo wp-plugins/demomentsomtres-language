@@ -40,7 +40,7 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
  */
 function QuBicIdioma_es_bloc_actiu($a) {
 //    echo '<pre>';print_r($a);echo '</pre>';
-    return $a['actiu']&&!$a['landing'];
+    return $a['actiu'] && !$a['landing'];
 }
 
 /**
@@ -218,8 +218,18 @@ function QuBicIdioma_relacions_save_meta($post_id) {
  * @since 0.4
  */
 function QuBicIdioma_print_links($content) {
-    $links = QuBicIdioma_crearContingutLinks();
-    $content = $content . $links;
+    global $wpdb;
+    $lastResult = $wpdb->last_result[0];
+    $postType = $lastResult->post_type;
+    if (isset($postType)):
+        $control = in_array($postType, QuBicIdioma_obtenir_tipus_traduibles());
+    else:
+        $control = true;
+    endif;
+    if ($control):
+        $links = QuBicIdioma_crearContingutLinks();
+        $content = $content . $links;
+    endif;
     return $content;
 }
 
@@ -440,7 +450,7 @@ function demomentsomtres_language_destination() {
         endif;
     endforeach;
     if (!$found):
-        $browserLang=  substr($browserLang, 0,2);
+        $browserLang = substr($browserLang, 0, 2);
         foreach ($blocsActius as $blog):
             $langs = explode(",", $blog['browser_langs']);
             if (in_array($browserLang, $langs, true)):
@@ -451,7 +461,7 @@ function demomentsomtres_language_destination() {
         endforeach;
     endif;
 //    $destination.='/'; /* to skip one redirection */
-    $destination.=$_SERVER['REQUEST_URI']; /*1.1.9*/
+    $destination.=$_SERVER['REQUEST_URI']; /* 1.1.9 */
     return $destination;
 }
 
@@ -469,11 +479,12 @@ function demomentsomtres_language_isLanding() {
  * @since 1.1
  */
 function demomentsomtres_language_redirect() {
-    if(is_admin()):
+    if (is_admin()):
         return;
     endif;
     if (demomentsomtres_language_isLanding()):
         exit(wp_redirect(demomentsomtres_language_destination()));
     endif;
 }
+
 ?>
