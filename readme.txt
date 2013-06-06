@@ -23,6 +23,10 @@ Upload the DeMomentSomTres Idioma plugin.
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
 == Changelog ==
+=1.1.11=
+
+* bug when installed in a directory instead of the root of the web.
+
 =1.1.10=
 
 * avoid showing translation on widgets calling custom types.
