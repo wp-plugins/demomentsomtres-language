@@ -1,6 +1,6 @@
 === DeMomentSomTres Language ===
 Contributors: marcqueralt
-Tags: multilanguage, network, l10n
+Tags: multilanguage, network, l10n, language, languages, localization, translate, translation, translations, po, mo, gettext
 Donate link: http://DeMomentSomTres.com
 Version: 1.1.10
 Requires at least: 3.2.1
