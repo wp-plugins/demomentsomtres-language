@@ -1,8 +1,8 @@
 === DeMomentSomTres Language ===
 Contributors: marcqueralt
-Tags: multilanguage, network, l10n, language, languages, localization, translate, translation, translations, po, mo, gettext
+Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.1.10
+Version: 1.2
 Requires at least: 3.2.1
 Tested up to: 3.5.1
 Stable tag: trunk
@@ -23,6 +23,11 @@ Upload the DeMomentSomTres Idioma plugin.
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
 == Changelog ==
+=1.2=
+* shortcode [DeMomentSomTres-Language class="optional classes"] to show all translations of the main content.
+* widget Language: post translations
+* shortcode mode to avoid traditional filters.
+
 =1.1.11=
 
 * bug when installed in a directory instead of the root of the web.

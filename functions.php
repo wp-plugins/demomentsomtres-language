@@ -461,7 +461,7 @@ function demomentsomtres_language_destination() {
         endforeach;
     endif;
 //    $destination.='/'; /* to skip one redirection */
-    $cua=str_replace(site_url(),'',$_SERVER['SCRIPT_URI']);
+    $cua = str_replace(site_url(), '', $_SERVER['SCRIPT_URI']);
     $destination.=$cua; /* 1.1.9 */
     return $destination;
 }
@@ -486,6 +486,36 @@ function demomentsomtres_language_redirect() {
     if (demomentsomtres_language_isLanding()):
         exit(wp_redirect(demomentsomtres_language_destination()));
     endif;
+}
+
+/**
+ * Gets the shortcode mode
+ * @return boolean
+ * @since 1.2
+ */
+function demomentsomtres_shortcode_mode() {
+    $options = get_option(QBC_IDIOMA_OPTIONS);
+    return (isset($options['shortcode']));
+}
+
+/**
+ * Returns the links based on shortcode
+ * @return string the links of translated contents
+ * @since 1.2
+ */
+function demomentsomtres_language_shortcode($attr) {
+    if (isset($attr['class'])):
+        $class = $attr['class'];
+        $output = QuBicIdioma_crearContingutLinks($class);
+    else:
+        $output = QuBicIdioma_crearContingutLinks();
+    endif;
+    return $output;
+}
+
+function demomentsomtres_language_hihatraduccions($id) {
+    $traduccions = QuBicIdioma_obtenir_traduccions($id);
+    return count($traduccions) > 0;
 }
 
 ?>

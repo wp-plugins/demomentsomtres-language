@@ -29,12 +29,12 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-define( 'QBC_IDIOMA_VERSION', '0.1' );
-define( 'QBC_IDIOMA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'QBC_IDIOMA_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'QBC_IDIOMA_TEXT_DOMAIN', 'QuBic_Idioma' );
-define( 'QBC_IDIOMA_OPTIONS', 'QuBicIdioma_options' );
-define( 'QBC_IDIOMA_PREFIX','QuBicIdioma_relation-');
+define('QBC_IDIOMA_VERSION', '0.1');
+define('QBC_IDIOMA_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('QBC_IDIOMA_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('QBC_IDIOMA_TEXT_DOMAIN', 'QuBic_Idioma');
+define('QBC_IDIOMA_OPTIONS', 'QuBicIdioma_options');
+define('QBC_IDIOMA_PREFIX', 'QuBicIdioma_relation-');
 
 require_once QBC_IDIOMA_PLUGIN_PATH . 'functions.php';
 require_once QBC_IDIOMA_PLUGIN_PATH . 'admin.php';
@@ -42,36 +42,39 @@ require_once QBC_IDIOMA_PLUGIN_PATH . 'widgets.php';
 require_once QBC_IDIOMA_PLUGIN_PATH . 'language-detection.php';
 
 // Make sure we don't expose any info if called directly
-if ( !function_exists( 'add_action' ) )
-{
+if (!function_exists('add_action')) {
     echo "Hi there!  I'm just a plugin, not much I can do when called directly.";
     exit;
 }
 //add_action('template_redirect', 'demomentsomtres_language_redirect');//12.23s
-add_action('plugins_loaded', 'demomentsomtres_language_redirect',0);//10.91s
-
+add_action('plugins_loaded', 'demomentsomtres_language_redirect', 0); //10.91s
 //echo '<pre>';print_r(QuBicIdioma_obtenir_tipus_traduibles());echo '</pre>';; exit();
 
-load_plugin_textdomain( QBC_IDIOMA_TEXT_DOMAIN, false, QBC_IDIOMA_PLUGIN_URL . '/languages' );
-add_action( 'init', 'QuBicIdioma_init' );
-if ( is_admin() ):
-    add_action( 'admin_menu', 'QuBicIdioma_admin' );
+load_plugin_textdomain(QBC_IDIOMA_TEXT_DOMAIN, false, QBC_IDIOMA_PLUGIN_URL . '/languages');
+add_action('init', 'QuBicIdioma_init');
+if (is_admin()):
+    add_action('admin_menu', 'QuBicIdioma_admin');
 else:
-    wp_enqueue_script( 'QuBic_Idioma_selectmenu', plugin_dir_url( __FILE__ ) . 'jquery.ui.selectmenu.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget' ), '', true );
-    wp_enqueue_script( 'QuBic_Idioma_widgets', plugin_dir_url( __FILE__ ) . 'widgets.js', array( 'QuBic_Idioma_selectmenu' ), '', true );
-    wp_enqueue_style( 'QuBic_Idioma_UI', plugin_dir_url( __FILE__ ) . 'jqueryUI.css', '', '' );
-    wp_enqueue_style( 'QuBic_Idioma_Widgets', plugin_dir_url( __FILE__ ) . 'widgets.css', '', '' );
+    wp_enqueue_script('QuBic_Idioma_selectmenu', plugin_dir_url(__FILE__) . 'jquery.ui.selectmenu.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget'), '', true);
+    wp_enqueue_script('QuBic_Idioma_widgets', plugin_dir_url(__FILE__) . 'widgets.js', array('QuBic_Idioma_selectmenu'), '', true);
+    wp_enqueue_style('QuBic_Idioma_UI', plugin_dir_url(__FILE__) . 'jqueryUI.css', '', '');
+    wp_enqueue_style('QuBic_Idioma_Widgets', plugin_dir_url(__FILE__) . 'widgets.css', '', '');
 endif;
-add_action( 'widgets_init', 'QuBicIdioma_widgets_init' );
-add_action( 'add_meta_boxes', 'QuBicIdioma_activar_relacions');
-add_action( 'save_post', 'QuBicIdioma_relacions_save_meta' );
-add_filter('the_content', 'QuBicIdioma_print_links', 1000);
+add_action('widgets_init', 'QuBicIdioma_widgets_init');
+add_action('add_meta_boxes', 'QuBicIdioma_activar_relacions');
+add_action('save_post', 'QuBicIdioma_relacions_save_meta');
+if (!demomentsomtres_shortcode_mode()):
+    add_filter('the_content', 'QuBicIdioma_print_links', 1000);
+endif;
+add_shortcode('DeMomentSomTres-Language','demomentsomtres_language_shortcode');
+add_action('widgets_init', create_function('', 'return register_widget("DeMomentSomTres_Post_Translations");'));
 
 /**
  * Plugin init
  * @since 0.1
  */
-function QuBicIdioma_init()
-{
+function QuBicIdioma_init() {
+    
 }
+
 ?>

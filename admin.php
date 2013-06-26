@@ -41,6 +41,9 @@ function QuBicIdioma_admin() {
     add_settings_field(
             'QuBicIdioma_default', __('Default Site', QBC_IDIOMA_TEXT_DOMAIN), 'QuBicIdioma_admin_default_site_input', 'QuBicIdioma', 'QuBicIdioma_main'
     );
+    add_settings_field(
+            'QuBicIdioma_shortcode', __('Shortcode mode', QBC_IDIOMA_TEXT_DOMAIN), 'QuBicIdioma_admin_shortcode_input', 'QuBicIdioma', 'QuBicIdioma_mode'
+    );
     add_options_page(__('MultiLanguage', QBC_IDIOMA_TEXT_DOMAIN), __('MultiLanguage', QBC_IDIOMA_TEXT_DOMAIN), 'manage_options', 'QuBicIdioma', 'QuBicIdioma_admin_optionspage');
 }
 
@@ -71,6 +74,7 @@ function QuBicIdioma_admin_section_mode_text() {
     echo '<ul>';
     echo '<li><strong>' . __("Landing site", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' . __("Site redirects based on browser language.", QBC_IDIOMA_TEXT_DOMAIN) . '</li>';
     echo '<li><strong>' . __("Language site", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' . __("Site shows specific language", QBC_IDIOMA_TEXT_DOMAIN) . '</li>';
+    echo '<li><strong>' . __("Shortcode mode", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' .__("Links are only printed based on shotcode [DeMomentSomTres-Language] that shows translation of the main component.", QBC_IDIOMA_TEXT_DOMAIN).'</li>';
     echo '</ul>';
 //    echo '<pre>' . print_r( QuBicIdioma_obtenir_posts_types_traduibles(), true ) . '</pre>';
 }
@@ -179,9 +183,7 @@ function QuBicIdioma_admin_camps_tipus() {
         add_settings_field(
                 'QuBicIdioma_type_' . $key, $etiqueta, 'QuBicIdioma_admin_type_input', 'QuBicIdioma', 'QuBicIdioma_types', $args
         );
-    endforeach; {
-        
-    }
+    endforeach;
 }
 
 /**
@@ -248,4 +250,21 @@ function QuBicIdioma_admin_default_site_input() {
     echo '>';
 }
 
+/**
+ * @since 1.2
+ */
+function QuBicIdioma_admin_shortcode_input() {
+    $options = get_option(QBC_IDIOMA_OPTIONS);
+    if (isset($options['shortcode'])):
+        $default = $options['shortcode'];
+    else:
+        $default = '';
+    endif;
+    echo '<input type="checkbox" name="';
+    echo QBC_IDIOMA_OPTIONS . '[shortcode]';
+    echo '" ';
+    $checked = checked($default, 'on', false);
+    echo $checked;
+    echo '>';
+}
 ?>
