@@ -461,7 +461,10 @@ function demomentsomtres_language_destination() {
         endforeach;
     endif;
 //    $destination.='/'; /* to skip one redirection */
-    $cua = str_replace(site_url(), '', $_SERVER['SCRIPT_URI']);
+    $cua = str_replace(strtolower(site_url()), '', $_SERVER['SCRIPT_URI']);
+    echo 'site_url():'.site_url();
+    echo '<br/>cua:'.$cua;
+    exit;
     $destination.=$cua; /* 1.1.9 */
     return $destination;
 }

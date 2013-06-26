@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.2
+Version: 1.2.01
 Requires at least: 3.2.1
 Tested up to: 3.5.1
 Stable tag: trunk
@@ -23,6 +23,9 @@ Upload the DeMomentSomTres Idioma plugin.
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
 == Changelog ==
+=1.2.01=
+* bug solved: when siteurl contains upper cases it started a redirection cycle.
+
 =1.2=
 * shortcode [DeMomentSomTres-Language class="optional classes"] to show all translations of the main content.
 * widget Language: post translations
