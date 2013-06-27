@@ -23,6 +23,9 @@ Upload the DeMomentSomTres Idioma plugin.
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
 == Changelog ==
+=1.2.02=
+* bug solved: debug info showed to solve 1.2.01 bug not removed.
+
 =1.2.01=
 * bug solved: when siteurl contains upper cases it started a redirection cycle.
 
