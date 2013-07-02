@@ -117,6 +117,7 @@ class DeMomentSomTres_Post_Translations extends WP_Widget {
         $title = esc_attr($instance['title']);
         ?>
         <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label></p>
+        <p><label for="<?php echo $this->get_field_id('always'); ?>"><?php _e('Always shown:'); ?> <input class="widefat" id="<?php echo $this->get_field_id('always'); ?>" name="<?php echo $this->get_field_name('always'); ?>" type="checkbox" <?php checked(isset($instance['always']) ? 1 : 0); ?>/></label></p>
         <?php
     }
 
@@ -129,12 +130,20 @@ class DeMomentSomTres_Post_Translations extends WP_Widget {
         global $post;
         extract($args);
         $title = apply_filters('widget_title', $instance['title']);
+        $always = isset($instance['always']);
         if (demomentsomtres_language_hihatraduccions($post->ID)):
             echo $before_widget;
             if ($title)
                 echo $before_title . $title . $after_title;
             echo QuBicIdioma_crearContingutLinks();
             echo $after_widget;
+        else:
+            if ($always):
+                echo $before_widget;
+                if ($title)
+                    echo $before_title . $title . $after_title;
+                echo $after_widget;
+            endif;
         endif;
     }
 
