@@ -7,7 +7,7 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://www.DeMomentSomTres.com/catala
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 1.2.03
+  Version: 1.2.04
   Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com
   License: GPLv2 or later

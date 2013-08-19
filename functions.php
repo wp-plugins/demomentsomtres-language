@@ -487,7 +487,7 @@ function demomentsomtres_language_redirect() {
         return;
     endif;
     if (demomentsomtres_language_isLanding()):
-        exit(wp_redirect(demomentsomtres_language_destination()));
+        exit(wp_redirect(demomentsomtres_language_destination(),301));
     endif;
 }
 
