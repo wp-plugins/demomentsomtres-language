@@ -127,7 +127,7 @@ function QuBicIdioma_mb_relacio($post) {
     endforeach;
     $output .= '</tbody></table>';
     $output .= '<p><label for="QuBicIdiomaReciprocal">' . __('Reciprocal update?', QBC_IDIOMA_TEXT_DOMAIN) . '</label>';
-    $output .= '<input type="checkbox" name="QuBicIdiomaReciprocal"/>';
+    $output .= '<input type="checkbox" name="QuBicIdiomaReciprocal" checked/>';
     $output .= '<span class="description">' . __('If you select this option, all refered translations will be also linked to the current one. You would not need to update the relationship in other blogs.', QBC_IDIOMA_TEXT_DOMAIN) . '</span></p>';
     echo $output;
 }
@@ -440,6 +440,7 @@ function demomentsomtres_language_destination() {
     $blocsActius = QuBicIdioma_obtenir_blocs_actius();
     $browserLang = getDefaultLanguage();
     $destination = $defaultSite;
+    $urlServer = $_SERVER['SERVER_NAME'];
     $found = false;
     foreach ($blocsActius as $blog):
         $langs = explode(",", $blog['browser_langs']);
@@ -460,12 +461,16 @@ function demomentsomtres_language_destination() {
             endif;
         endforeach;
     endif;
-//    $destination.='/'; /* to skip one redirection */
-    $cua = str_replace(strtolower(site_url()), '', $_SERVER['SCRIPT_URI']);
-//    echo 'site_url():'.site_url();
-//    echo '<br/>cua:'.$cua;
-//    exit;
+    //$cua = str_replace(strtolower(site_url()), '', $_SERVER['SCRIPT_URI']);
+    $cua = $_SERVER['SCRIPT_URL'];
     $destination.=$cua; /* 1.1.9 */
+//    echo '<pre>' . print_r($_SERVER, true) . '</pre>';
+//    echo '<pre>' . print_r($_REQUEST,true) . '</pre>';
+//    echo 'site_url():' . site_url();
+//    echo '<br/>url_server:' . $urlServer;
+//    echo '<br/>cua:' . $cua;
+//    echo '<br/>destination:' . $destination;
+//    exit;
     return $destination;
 }
 
@@ -487,7 +492,7 @@ function demomentsomtres_language_redirect() {
         return;
     endif;
     if (demomentsomtres_language_isLanding()):
-        exit(wp_redirect(demomentsomtres_language_destination(),301));
+        exit(wp_redirect(demomentsomtres_language_destination(), 301));
     endif;
 }
 

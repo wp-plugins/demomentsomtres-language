@@ -48,17 +48,16 @@ if (!function_exists('add_action')) {
 }
 //add_action('template_redirect', 'demomentsomtres_language_redirect');//12.23s
 add_action('plugins_loaded', 'demomentsomtres_language_redirect', 0); //10.91s
-//echo '<pre>';print_r(QuBicIdioma_obtenir_tipus_traduibles());echo '</pre>';; exit();
 
 load_plugin_textdomain(QBC_IDIOMA_TEXT_DOMAIN, false, QBC_IDIOMA_PLUGIN_URL . '/languages');
 add_action('init', 'QuBicIdioma_init');
 if (is_admin()):
     add_action('admin_menu', 'QuBicIdioma_admin');
 else:
-    wp_enqueue_script('QuBic_Idioma_selectmenu', plugin_dir_url(__FILE__) . 'jquery.ui.selectmenu.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget'), '', true);
-    wp_enqueue_script('QuBic_Idioma_widgets', plugin_dir_url(__FILE__) . 'widgets.js', array('QuBic_Idioma_selectmenu'), '', true);
-    wp_enqueue_style('QuBic_Idioma_UI', plugin_dir_url(__FILE__) . 'jqueryUI.css', '', '');
-    wp_enqueue_style('QuBic_Idioma_Widgets', plugin_dir_url(__FILE__) . 'widgets.css', '', '');
+    wp_register_script('QuBic_Idioma_selectmenu', plugin_dir_url(__FILE__) . 'jquery.ui.selectmenu.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget'), '', true);
+    wp_register_script('QuBic_Idioma_widgets', plugin_dir_url(__FILE__) . 'widgets.js', array('QuBic_Idioma_selectmenu'), '', true);
+    wp_register_style('QuBic_Idioma_UI', plugin_dir_url(__FILE__) . 'jqueryUI.css', '', '');
+    wp_register_style('QuBic_Idioma_Widgets', plugin_dir_url(__FILE__) . 'widgets.css', '', '');
 endif;
 add_action('widgets_init', 'QuBicIdioma_widgets_init');
 add_action('add_meta_boxes', 'QuBicIdioma_activar_relacions');

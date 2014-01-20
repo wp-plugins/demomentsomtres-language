@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.2.04
+Version: 1.2.05
 Requires at least: 3.2.1
 Tested up to: 3.5.1
 Stable tag: trunk
@@ -22,9 +22,24 @@ Upload the DeMomentSomTres Idioma plugin.
 
 You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
 
+== FAQ ==
+
+=== when I access my page with www destination is lost ===
+You should add the following code just after `RewriteBase /` in .htaccess file
+
+`RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
+
 == Changelog ==
+=1.2.05=
+* javascript optimization: javascript loaded only if required
+* css optimization: css loaded only if required
+* redirect errors
+* force reciprocal update on content save by default
+
 =1.2.04=
 * redirect landing site to default site via 301 instead of 302.
+
 =1.2.03=
 * post translation widget can be shown even if empty
 

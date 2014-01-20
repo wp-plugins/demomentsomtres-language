@@ -32,6 +32,10 @@ class QuBicIdioma_Chooser_Widget extends WP_Widget {
 
     function widget($args, $instance) {
         global $blog_id;
+        wp_print_scripts('QuBic_Idioma_selectmenu');
+        wp_print_scripts('QuBic_Idioma_widgets');
+        wp_print_styles('QuBic_Idioma_UI');
+        wp_print_styles('QuBic_Idioma_Widgets');
         $llista = QuBicIdioma_obtenir_blocs_actius();
         $output = '<div class="QuBic_Idioma_selector_container">';
         $output.='<form action="#">';
