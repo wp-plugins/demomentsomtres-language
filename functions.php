@@ -492,8 +492,30 @@ function demomentsomtres_language_redirect() {
         return;
     endif;
     if (demomentsomtres_language_isLanding()):
-        exit(wp_redirect(demomentsomtres_language_destination(), 301));
+        if (!demomentsomtres_language_isProtectedURL()): //1.2.1 improvement
+            exit(wp_redirect(demomentsomtres_language_destination(), 301));
+        endif;
     endif;
+}
+
+/**
+ * Verifies if the address is or not a redirectable URL. Protected URL are the ones that shouldn't be redirected like wp-admin and similar ones
+ * @since 1.2.1
+ * @return boolean true when the requested URL is a protected one
+ */
+function demomentsomtres_language_isProtectedURL() {
+    $url=$_SERVER["REQUEST_URI"];
+    $protectedPrefixs = array(
+        "/wp-login",
+        "/wp-admin",
+        "/wp-content/",
+    );
+    foreach($protectedPrefixs as $prefix):
+        if(substr($url,0,  strlen($prefix))==$prefix):
+            return true;
+        endif;
+    endforeach;
+    return false;
 }
 
 /**

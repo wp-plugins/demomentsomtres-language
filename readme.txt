@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.2.05
+Version: 1.2.1
 Requires at least: 3.2.1
 Tested up to: 3.5.1
 Stable tag: trunk
@@ -31,6 +31,9 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+=1.2.1=
+* skip some problematic redirects
+
 =1.2.05=
 * javascript optimization: javascript loaded only if required
 * css optimization: css loaded only if required
