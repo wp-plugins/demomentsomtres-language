@@ -4,7 +4,6 @@ Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
 Version: 1.2.1
 Requires at least: 3.2.1
-Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv2 or later
 
