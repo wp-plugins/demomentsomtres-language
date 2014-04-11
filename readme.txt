@@ -2,9 +2,8 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Version: 1.2.1
 Requires at least: 3.2.1
-Stable tag: trunk
+Stable tag: head
 License: GPLv2 or later
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
@@ -30,6 +29,9 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+= 1.3 =
+* libraries compatibility upgrade
+
 =1.2.1=
 * skip some problematic redirects
 
