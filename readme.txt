@@ -3,8 +3,8 @@ Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
 Requires at least: 3.2.1
+tested up to: 3.8
 Stable tag: head
-License: GPLv2 or later
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
 
