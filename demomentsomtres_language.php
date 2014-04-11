@@ -29,7 +29,7 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-define('QBC_IDIOMA_VERSION', '1.2.1');
+define('QBC_IDIOMA_VERSION', '1.3');
 define('QBC_IDIOMA_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('QBC_IDIOMA_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('QBC_IDIOMA_TEXT_DOMAIN', 'QuBic_Idioma');
