@@ -7,11 +7,13 @@
  * @param string $criteri order field used to sort
  * @return array contains a record for each blog with fields ID,name,address,order
  * @uses QuBicIdioma_obtenir_opcions_bloc
- * @uses get_blog_list
+ * @uses get_blog_list deprecated
+ * @uses wp_get_sites() since version 1.4
  */
 function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
     $info = array();
-    $blocs = get_blog_list();
+//    $blocs = get_blog_list();
+    $blocs = wp_get_sites(); 
     foreach ($blocs as $bloc):
         $opcions = QuBicIdioma_obtenir_opcions_bloc($bloc['blog_id']);
         $detalls = get_blog_details($bloc['blog_id']);

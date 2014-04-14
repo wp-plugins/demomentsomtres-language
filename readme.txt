@@ -2,7 +2,7 @@
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://DeMomentSomTres.com
-Requires at least: 3.2.1
+Requires at least: 3.7
 tested up to: 3.8
 Stable tag: head
 
@@ -29,6 +29,9 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+= 1.4 =
+* get_blog_list() deprecated and changed by wp_get_sites() in function QuBicIdioma_obtenir_blocs().
+
 = 1.3 =
 * libraries compatibility upgrade
 
