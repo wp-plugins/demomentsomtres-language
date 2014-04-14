@@ -8,12 +8,14 @@
  * @return array contains a record for each blog with fields ID,name,address,order
  * @uses QuBicIdioma_obtenir_opcions_bloc
  * @uses get_blog_list deprecated
- * @uses wp_get_sites() since version 1.4
+ * @uses wp_get_sites() since version 1.4 and optimization to get only public sites
  */
 function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
     $info = array();
 //    $blocs = get_blog_list();
-    $blocs = wp_get_sites(); 
+    $blocs = wp_get_sites(array(
+        'public' => 1,
+    ));
     foreach ($blocs as $bloc):
         $opcions = QuBicIdioma_obtenir_opcions_bloc($bloc['blog_id']);
         $detalls = get_blog_details($bloc['blog_id']);
@@ -21,7 +23,8 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
             'blog_id' => $bloc['blog_id'],
             'domain' => $bloc['domain'],
             'path' => $bloc['path'],
-            'actiu' => (isset($opcions['literal']) && (1 == $detalls->public)),
+//            'actiu' => (isset($opcions['literal']) && (1 == $detalls->public)),
+            'actiu' => isset($opcions['literal']),
             'language' => $opcions['literal'],
             'ordre' => isset($opcions['ordre']) ? $opcions['ordre'] : 99,
             'details' => $detalls,
@@ -30,8 +33,8 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
             'landing' => isset($opcions['landing_mode']) ? true : false, /* 1.1.8 */
         );
     endforeach;
-    $compare = makeSortFunction($criteri);
-    usort($info, $compare);
+//    $compare = makeSortFunction($criteri);
+//    usort($info, $compare);
     return $info;
 }
 
@@ -506,14 +509,14 @@ function demomentsomtres_language_redirect() {
  * @return boolean true when the requested URL is a protected one
  */
 function demomentsomtres_language_isProtectedURL() {
-    $url=$_SERVER["REQUEST_URI"];
+    $url = $_SERVER["REQUEST_URI"];
     $protectedPrefixs = array(
         "/wp-login",
         "/wp-admin",
         "/wp-content/",
     );
-    foreach($protectedPrefixs as $prefix):
-        if(substr($url,0,  strlen($prefix))==$prefix):
+    foreach ($protectedPrefixs as $prefix):
+        if (substr($url, 0, strlen($prefix)) == $prefix):
             return true;
         endif;
     endforeach;
