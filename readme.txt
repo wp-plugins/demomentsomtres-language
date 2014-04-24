@@ -1,9 +1,9 @@
 === DeMomentSomTres Language ===
 Contributors: marcqueralt
 Tags: multilanguage, network, seo
-Donate link: http://DeMomentSomTres.com
-Requires at least: 3.7
-tested up to: 3.8
+Donate link: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
+Requires at least: 3.8
+tested up to: 3.9
 Stable tag: head
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
@@ -29,6 +29,10 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+= 1.5 =
+* Value of blog properties public parameter is 2 in some cases. Changes in order to allow 2 or 1. 
+* Reciprocal update active by default.
+
 = 1.4 =
 * get_blog_list() deprecated and changed by wp_get_sites() in function QuBicIdioma_obtenir_blocs().
 

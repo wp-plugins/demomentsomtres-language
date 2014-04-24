@@ -8,14 +8,21 @@
  * @return array contains a record for each blog with fields ID,name,address,order
  * @uses QuBicIdioma_obtenir_opcions_bloc
  * @uses get_blog_list deprecated
- * @uses wp_get_sites() since version 1.4 and optimization to get only public sites
+ * @uses wp_get_sites() since version 1.4 and optimization to get only public sites 
+ * Uses public=2 and public=1 in order to prevent problems
  */
 function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
     $info = array();
 //    $blocs = get_blog_list();
     $blocs = wp_get_sites(array(
-        'public' => 1,
+        'public' => 2,
     ));
+    if (0 == count($blocs)):
+        $blocs = wp_get_sites(array(
+            'public' => 1,
+        ));
+    endif;
+//    echo '<pre>' . print_r($blocs, true) . '</pre>';
     foreach ($blocs as $bloc):
         $opcions = QuBicIdioma_obtenir_opcions_bloc($bloc['blog_id']);
         $detalls = get_blog_details($bloc['blog_id']);
@@ -33,8 +40,8 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
             'landing' => isset($opcions['landing_mode']) ? true : false, /* 1.1.8 */
         );
     endforeach;
-//    $compare = makeSortFunction($criteri);
-//    usort($info, $compare);
+    $compare = makeSortFunction($criteri);
+    usort($info, $compare);
     return $info;
 }
 
@@ -45,6 +52,9 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
  */
 function QuBicIdioma_es_bloc_actiu($a) {
 //    echo '<pre>';print_r($a);echo '</pre>';
+//    echo '<pre>Bloc actiu:' . print_r($a['actiu'], true) . '</pre>';
+//    echo '<pre>Bloc not landing:' . print_r(!$a['landing'], true) . '</pre>';
+//    echo '<pre>Condició: ' . print_r($a['actiu'] && !$a['landing'], true) . '</pre>';
     return $a['actiu'] && !$a['landing'];
 }
 
@@ -55,7 +65,9 @@ function QuBicIdioma_es_bloc_actiu($a) {
  */
 function QuBicIdioma_obtenir_blocs_actius($criteri = 'ordre') {
     $info = QuBicIdioma_obtenir_blocs($criteri);
+//    echo '<pre>obtenir_blocs_actius:' . print_r($info, true) . '</pre>';
     $info = array_filter($info, 'QuBicIdioma_es_bloc_actiu');
+//    echo '<pre>obtenir_blocs_actius:' . print_r($info, true) . '</pre>';
     return $info;
 }
 
@@ -132,7 +144,7 @@ function QuBicIdioma_mb_relacio($post) {
     endforeach;
     $output .= '</tbody></table>';
     $output .= '<p><label for="QuBicIdiomaReciprocal">' . __('Reciprocal update?', QBC_IDIOMA_TEXT_DOMAIN) . '</label>';
-    $output .= '<input type="checkbox" name="QuBicIdiomaReciprocal" checked/>';
+    $output .= '<input type="checkbox" name="QuBicIdiomaReciprocal" checked="checked"/>';
     $output .= '<span class="description">' . __('If you select this option, all refered translations will be also linked to the current one. You would not need to update the relationship in other blogs.', QBC_IDIOMA_TEXT_DOMAIN) . '</span></p>';
     echo $output;
 }
@@ -443,8 +455,10 @@ function demomentsomtres_default_site() {
 function demomentsomtres_language_destination() {
     $defaultSite = demomentsomtres_default_site();
     $blocsActius = QuBicIdioma_obtenir_blocs_actius();
+//    echo '<pre>blocsActius:' . $blocsActius . '</pre>';
     $browserLang = getDefaultLanguage();
     $destination = $defaultSite;
+//    echo '<pre>destination:' . $destination . '</pre>';
     $urlServer = $_SERVER['SERVER_NAME'];
     $found = false;
     foreach ($blocsActius as $blog):
@@ -469,12 +483,12 @@ function demomentsomtres_language_destination() {
     //$cua = str_replace(strtolower(site_url()), '', $_SERVER['SCRIPT_URI']);
     $cua = $_SERVER['SCRIPT_URL'];
     $destination.=$cua; /* 1.1.9 */
-//    echo '<pre>' . print_r($_SERVER, true) . '</pre>';
-//    echo '<pre>' . print_r($_REQUEST,true) . '</pre>';
-//    echo 'site_url():' . site_url();
-//    echo '<br/>url_server:' . $urlServer;
-//    echo '<br/>cua:' . $cua;
-//    echo '<br/>destination:' . $destination;
+//    echo '<pre>$_SERVER:' . print_r($_SERVER, true) . '</pre>';
+//    echo '<pre>$_REQUEST:' . print_r($_REQUEST, true) . '</pre>';
+//    echo '<pre>site_url():' . site_url() . '</pre>';
+//    echo '<pre>url_server:' . $urlServer . '</pre>';
+//    echo '<pre>cua:' . $cua . '</pre>';
+//    echo '<pre>destination:' . $destination . '</pre>';
 //    exit;
     return $destination;
 }

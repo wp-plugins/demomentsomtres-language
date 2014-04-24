@@ -74,7 +74,7 @@ function QuBicIdioma_admin_section_mode_text() {
     echo '<ul>';
     echo '<li><strong>' . __("Landing site", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' . __("Site redirects based on browser language.", QBC_IDIOMA_TEXT_DOMAIN) . '</li>';
     echo '<li><strong>' . __("Language site", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' . __("Site shows specific language", QBC_IDIOMA_TEXT_DOMAIN) . '</li>';
-    echo '<li><strong>' . __("Shortcode mode", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' .__("Links are only printed based on shotcode [DeMomentSomTres-Language] that shows translation of the main component.", QBC_IDIOMA_TEXT_DOMAIN).'</li>';
+    echo '<li><strong>' . __("Shortcode mode", QBC_IDIOMA_TEXT_DOMAIN) . '</strong>: ' . __("Links are only printed based on shotcode [DeMomentSomTres-Language] that shows translation of the main component.", QBC_IDIOMA_TEXT_DOMAIN) . '</li>';
     echo '</ul>';
 //    echo '<pre>' . print_r( QuBicIdioma_obtenir_posts_types_traduibles(), true ) . '</pre>';
 }
@@ -106,9 +106,10 @@ function QuBicIdioma_admin_section_config_text() {
     echo "</p>";
     $lang = getDefaultLanguage();
     echo "<p>" . _e('Your browser default language: ', QBC_IDIOMA_TEXT_DOMAIN) . $lang . "</p>";
+    $destination = demomentsomtres_language_destination();
+    echo "<p>" . _e('You would be redirected to: ', QBC_IDIOMA_TEXT_DOMAIN) . $destination . ".</p>";
     if ($isLanding) {
-        $destination = demomentsomtres_language_destination();
-        echo "<p>" . _e('You would be redirected to: ', QBC_IDIOMA_TEXT_DOMAIN) . $destination . ".</p>";
+        echo "<p>" . _e('This is a landing site', QBC_IDIOMA_TEXT_DOMAIN) . "</p>";
     } else {
         echo "<p>" . _e('This is not a landing site.', QBC_IDIOMA_TEXT_DOMAIN) . "</p>";
     }
@@ -267,4 +268,5 @@ function QuBicIdioma_admin_shortcode_input() {
     echo $checked;
     echo '>';
 }
+
 ?>
