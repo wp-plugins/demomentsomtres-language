@@ -51,6 +51,7 @@ add_action('plugins_loaded', 'demomentsomtres_language_redirect', 0); //10.91s
 
 load_plugin_textdomain(QBC_IDIOMA_TEXT_DOMAIN, false, QBC_IDIOMA_PLUGIN_URL . '/languages');
 add_action('init', 'QuBicIdioma_init');
+add_filter('get_blogs_of_user', 'demomentsomtres_language_mysites');
 if (is_admin()):
     add_action('admin_menu', 'QuBicIdioma_admin');
 else:
@@ -65,7 +66,7 @@ add_action('save_post', 'QuBicIdioma_relacions_save_meta');
 if (!demomentsomtres_shortcode_mode()):
     add_filter('the_content', 'QuBicIdioma_print_links', 1000);
 endif;
-add_shortcode('DeMomentSomTres-Language','demomentsomtres_language_shortcode');
+add_shortcode('DeMomentSomTres-Language', 'demomentsomtres_language_shortcode');
 add_action('widgets_init', create_function('', 'return register_widget("DeMomentSomTres_Post_Translations");'));
 
 /**

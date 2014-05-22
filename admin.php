@@ -61,7 +61,7 @@ function QuBicIdioma_admin_optionspage() {
     echo '<form action="options.php" method="post">';
     settings_fields('QuBicIdioma_options');
     do_settings_sections('QuBicIdioma');
-    echo '<input name="Submit" type="submit" value="' . __('Save Changes', QBC_IDIOMA_TEXT_DOMAIN) . '"/>';
+    echo '<input class="primary" name="Submit" type="submit" value="' . __('Save Changes', QBC_IDIOMA_TEXT_DOMAIN) . '"/>';
     echo '</form>';
     echo '</div>';
 }
@@ -259,7 +259,7 @@ function QuBicIdioma_admin_shortcode_input() {
     if (isset($options['shortcode'])):
         $default = $options['shortcode'];
     else:
-        $default = '';
+        $default = 'on';
     endif;
     echo '<input type="checkbox" name="';
     echo QBC_IDIOMA_OPTIONS . '[shortcode]';

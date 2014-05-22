@@ -567,4 +567,29 @@ function demomentsomtres_language_hihatraduccions($id) {
     return count($traduccions) > 0;
 }
 
+/**
+ * Adds language and additional information to blogs 
+ * @param array $blogs
+ * @return array
+ * @since 1.6
+ */
+function demomentsomtres_language_mysites($blogs) {
+    foreach ($blogs as $blog):
+//        echo '<pre>' . print_r($blog, true);
+        $info = QuBicIdioma_obtenir_opcions_bloc($blog->userblog_id);
+//        echo '<pre>' . print_r($info, true);
+        if(isset($info['landing_mode'])):
+            $blog->blogname .= '-' . __('LANDING',QBC_IDIOMA_TEXT_DOMAIN);
+        else:
+            $blog->blogname .= '-' . $info['literal'];
+        endif;
+        $blog->order = (int)$info['ordre'];
+    endforeach;
+    $f = create_function('$a,$b','return ($a->order>$b->order);');
+        uasort($blogs, $f);
+//        echo '<pre>' . print_r($blogs, true);
+//    exit();
+    return $blogs;
+}
+
 ?>
