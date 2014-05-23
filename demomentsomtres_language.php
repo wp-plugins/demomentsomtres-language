@@ -7,7 +7,7 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 1.5
+  Version: 1.6
   Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com
   License: GPLv2 or later
@@ -29,7 +29,7 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-define('QBC_IDIOMA_VERSION', '1.5');
+define('QBC_IDIOMA_VERSION', '1.6');
 define('QBC_IDIOMA_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('QBC_IDIOMA_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('QBC_IDIOMA_TEXT_DOMAIN', 'QuBic_Idioma');
