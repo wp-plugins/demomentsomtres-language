@@ -11,14 +11,46 @@ DeMomentSomTres Language allows to have different instances of a blog using diff
 == Description ==
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-It includes a widget to change to initial home page in another language.
-Every post contains a link to any of its translation in an area below the title and content metadata.
 
+Using WordPress multisite install you can have a web instance for every language allowing specific SEO and sales strategies based on language.
+
+It allows to change from a content to its translations via easy links.
+
+= Features =
+* Language configuration.
+* Automatic language selection based on browser preferred language.
+* Every content can be linked to all its translations on other instances.
+* Translatable content types defined in settings.
+* Language links can be presented via 'the_content' filter or using shortcodes and widgets.
+
+= History & raison d'être =
+In 2011 we needed a multilanguage plugin allowing:
+* Content translation.
+* Integration with WordPress SEO by Yoast.
+* Different communication and SEO strategies based on language.
+* Automatic language selection based on browser language.
+
+As we didn't find it, we decided to implement it and use it.
+
+= More information =
+[DeMomentSomTres Language in DeMomentSomTres.com](http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/)
+
+= Usage =
+The recommended usage mode (supose required languages catalan and english) is having 3 instances of WordPress:
+1. Landing site configured in landing mode in order to redirect the users based on their languages preferences. For instance http://demomentsomtres.com/
+2. Catalan site with catalan language set. Example address http://demomentsomtres.com/catala/
+3. English site with englis language set and default site mark. Example address http://demomentsomtres.com/english/
+
+A french user when looking for http://demomentsomtres.com will be redirected to http://demomentsomtres.com/english as it is the default mode.
+
+When you're writting a content, a metabox whit the candidate translations is shown in order to link a component with all its translations.
 == Installation ==
 
-Upload the DeMomentSomTres Idioma plugin.
+It can be installed as any other WordPress plugin.
 
-You need to assure that your main blog is not used because of the blog forced prefix on the contents. To prevent using main network site redirection plugin can be used to send contents to default site.
+In order to work properly, WordPress Multisite MUST be installed and configured.
+
+We recommend to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured.
 
 == FAQ ==
 
