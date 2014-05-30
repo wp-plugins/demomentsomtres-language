@@ -17,11 +17,10 @@ function QuBicIdioma_obtenir_blocs($criteri = 'ordre') {
     $blocs = wp_get_sites(array(
         'public' => 2,
     ));
-    if (0 == count($blocs)):
-        $blocs = wp_get_sites(array(
-            'public' => 1,
-        ));
-    endif;
+    $blocs1 = wp_get_sites(array(
+        'public' => 1,
+    ));
+    $blocs = array_merge($blocs1, $blocs);
 //    echo '<pre>' . print_r($blocs, true) . '</pre>';
     foreach ($blocs as $bloc):
         $opcions = QuBicIdioma_obtenir_opcions_bloc($bloc['blog_id']);
@@ -438,8 +437,12 @@ function QuBicIdioma_reciprocal_update($post_id) {
 function demomentsomtres_default_site() {
     $defaultSite = '';
     $blocsActius = QuBicIdioma_obtenir_blocs_actius();
+//    echo '<pre>' . print_r($blocsActius, true) . '</pre>';
+//    exit;
     foreach ($blocsActius as $blog):
+//        echo '<pre>' . print_r($blog, true) . '</pre>';
         if (1 == $blog['default_site']) {
+//            echo '<pre>' . print_r($blog, true) . '</pre>';
             $defaultSite = $blog['details']->siteurl;
             break;
         }
@@ -454,11 +457,12 @@ function demomentsomtres_default_site() {
  */
 function demomentsomtres_language_destination() {
     $defaultSite = demomentsomtres_default_site();
+//    echo '<pre>defaultSite:' . print_r($defaultSite, true) . '</pre>';
     $blocsActius = QuBicIdioma_obtenir_blocs_actius();
-//    echo '<pre>blocsActius:' . $blocsActius . '</pre>';
+//    echo '<pre>blocsActius:' . print_r($blocsActius,true) . '</pre>';
     $browserLang = getDefaultLanguage();
     $destination = $defaultSite;
-//    echo '<pre>destination:' . $destination . '</pre>';
+//    echo '<pre>destination:' . print_r($destination,true) . '</pre>';
     $urlServer = $_SERVER['SERVER_NAME'];
     $found = false;
     foreach ($blocsActius as $blog):
@@ -578,15 +582,15 @@ function demomentsomtres_language_mysites($blogs) {
 //        echo '<pre>' . print_r($blog, true);
         $info = QuBicIdioma_obtenir_opcions_bloc($blog->userblog_id);
 //        echo '<pre>' . print_r($info, true);
-        if(isset($info['landing_mode'])):
-            $blog->blogname .= '-' . __('LANDING',QBC_IDIOMA_TEXT_DOMAIN);
+        if (isset($info['landing_mode'])):
+            $blog->blogname .= '-' . __('LANDING', QBC_IDIOMA_TEXT_DOMAIN);
         else:
             $blog->blogname .= '-' . $info['literal'];
         endif;
-        $blog->order = (int)$info['ordre'];
+        $blog->order = (int) $info['ordre'];
     endforeach;
-    $f = create_function('$a,$b','return ($a->order>$b->order);');
-        uasort($blogs, $f);
+    $f = create_function('$a,$b', 'return ($a->order>$b->order);');
+    uasort($blogs, $f);
 //        echo '<pre>' . print_r($blogs, true);
 //    exit();
     return $blogs;

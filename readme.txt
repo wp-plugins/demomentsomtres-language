@@ -61,6 +61,9 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+= 1.6.1 =
+* bug: recursive redirect
+
 = 1.6 =
 * Language added after the site name in 'My Sites' menu.
 * 'My Sites' menu sort order based on settings.
