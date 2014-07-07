@@ -52,11 +52,11 @@ In order to work properly, WordPress Multisite MUST be installed and configured.
 
 We recommend to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured.
 
-= FAQ =
-== Shortcode syntax ==
+== Frequently Asked Questions ==
+= Shortcode syntax =
 The short code syntax is `[DeMomentSomTres-Language class="optional class"]`.
 
-== when I access my page with www destination is lost ==
+= when I access my page with www destination is lost =
 You should add the following code just after `RewriteBase /` in .htaccess file
 
 `RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
