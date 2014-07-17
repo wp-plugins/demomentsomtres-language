@@ -596,4 +596,19 @@ function demomentsomtres_language_mysites($blogs) {
     return $blogs;
 }
 
+/**
+ * @since 1.7
+ */
+function demomentsomtres_language_body_classes($classes) {
+    $options = get_option(QBC_IDIOMA_OPTIONS);
+    $body_classes = $options['body_classes'];
+    if ('' != $body_classes):
+        $newClasses = explode(',', $body_classes);
+        foreach($newClasses as $c):
+        $classes[] = 'dms3-language-'.trim($c);
+        endforeach;
+    endif;
+    return $classes;
+}
+
 ?>

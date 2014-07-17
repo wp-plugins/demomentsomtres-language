@@ -42,6 +42,9 @@ function QuBicIdioma_admin() {
             'QuBicIdioma_default', __('Default Site', QBC_IDIOMA_TEXT_DOMAIN), 'QuBicIdioma_admin_default_site_input', 'QuBicIdioma', 'QuBicIdioma_main'
     );
     add_settings_field(
+            'QuBicIdioma_classes', __('Body classes', QBC_IDIOMA_TEXT_DOMAIN), 'QuBicIdioma_admin_body_classes_input', 'QuBicIdioma', 'QuBicIdioma_main'
+    );
+    add_settings_field(
             'QuBicIdioma_shortcode', __('Shortcode mode', QBC_IDIOMA_TEXT_DOMAIN), 'QuBicIdioma_admin_shortcode_input', 'QuBicIdioma', 'QuBicIdioma_mode'
     );
     add_options_page(__('MultiLanguage', QBC_IDIOMA_TEXT_DOMAIN), __('MultiLanguage', QBC_IDIOMA_TEXT_DOMAIN), 'manage_options', 'QuBicIdioma', 'QuBicIdioma_admin_optionspage');
@@ -267,6 +270,16 @@ function QuBicIdioma_admin_shortcode_input() {
     $checked = checked($default, 'on', false);
     echo $checked;
     echo '>';
+}
+
+/**
+ * @since 1.7
+ */
+function QuBicIdioma_admin_body_classes_input() {
+    $options = get_option(QBC_IDIOMA_OPTIONS);
+    $body_classes = $options['body_classes'];
+    echo '<input id="body_classes" name="QuBicIdioma_options[body_classes]" type="text" size="100" value="' . $body_classes . '"/>';
+    echo '<p class="small">'.__('Comma separated list of classes to add',QBC_IDIOMA_TEXT_DOMAIN).'</p>';
 }
 
 ?>

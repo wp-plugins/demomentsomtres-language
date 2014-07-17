@@ -22,6 +22,7 @@ It allows to change from a content to its translations via easy links.
 * Every content can be linked to all its translations on other instances.
 * Translatable content types defined in settings.
 * Language links can be presented via 'the_content' filter or using shortcodes and widgets.
+* Body class customization based on language.
 
 = History & raison d'être =
 In 2011 we needed a multilanguage plugin allowing:
@@ -52,17 +53,19 @@ In order to work properly, WordPress Multisite MUST be installed and configured.
 
 We recommend to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured.
 
-== Frequently Asked Questions ==
-= Shortcode syntax =
-The short code syntax is `[DeMomentSomTres-Language class="optional class"]`.
+== FAQ ==
 
-= when I access my page with www destination is lost =
+=== when I access my page with www destination is lost ===
 You should add the following code just after `RewriteBase /` in .htaccess file
 
 `RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+
+= 1.7 =
+* Additional class based on language
+
 = 1.6.1 =
 * bug: recursive redirect
 
@@ -190,14 +193,3 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 =0.1=
 
 * Initial release
-
-=Next steps=
-
-* Afegir un enllaç a la taula de translations per tal d'anar a la pàgina d'edició del post en una altre bloc.
-* Associar traduccions de categories
-* Associar traduccions de tags
-* Associar traduccions d'entrades de menú
-* Associar traduccions de links
-* Mapa d'associacions per a una determinada tipologia d'elements
-* Modificar el generador d'url per a que el títol digui traducció al XXX: títol.
-* Footer link per a promoció SEO
