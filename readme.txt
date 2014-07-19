@@ -38,6 +38,7 @@ As we didn't find it, we decided to implement it and use it.
 
 = Usage =
 The recommended usage mode (supose required languages catalan and english) is having 3 instances of WordPress:
+
 1.Landing site configured in landing mode in order to redirect the users based on their languages preferences. For instance http://demomentsomtres.com/
 2.Catalan site with catalan language set. Example address http://demomentsomtres.com/catala/
 3.English site with englis language set and default site mark. Example address http://demomentsomtres.com/english/
