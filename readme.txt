@@ -64,6 +64,9 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
 
+= 1.8 =
+* At frontpage automatically redirects to other frontpages.
+
 = 1.7 =
 * Additional class based on language
 

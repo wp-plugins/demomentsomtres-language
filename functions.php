@@ -259,23 +259,44 @@ function QuBicIdioma_print_links($content) {
  */
 function QuBicIdioma_crearContingutLinks($class = 'qibdip-idioma-post-translations') {
     global $post;
-    if (!QuBicIdioma_obtenir_posttype_a_traduir($post->post_type)):
-        return '';
+    if (is_front_page()):
+        $blogs = QuBicIdioma_obtenir_blocs_actius();
+        $links = '';
+        $blog_id = get_current_blog_id();
+        foreach ($blogs as $blog):
+            if ($blog['blog_id'] != $blog_id):
+                $detalls=$blog['details'];
+                $links.='<li>';
+                $links.='<a href="';
+                $links.=$detalls->siteurl;
+                $links.='" title="';
+                $links.=$blog['language'];
+                $links.='">';
+                $links.=$blog['language'];
+                $links.='</a>';
+                $links.='</li>';
+            endif;
+        endforeach;
+    else:
+        if (!QuBicIdioma_obtenir_posttype_a_traduir($post->post_type)):
+            return '';
+        endif;
+        $traduccions = QuBicIdioma_obtenir_traduccions($post->ID);
+        $links = '';
+        foreach ($traduccions as $traduccio) {
+            $links.='<li>';
+            $links.='<a href="';
+            $links.=$traduccio['post_url'];
+            $links.='" title="'; //TODO afegir-hi "Traducció al XXX de YYY
+            $links.=$traduccio['post_title'];
+            $links.='">';
+            $links.=$traduccio['post_language'];
+            $links.='</a>';
+            $links.='</li>';
+        }
     endif;
-    $traduccions = QuBicIdioma_obtenir_traduccions($post->ID);
-    $links = '';
-    foreach ($traduccions as $traduccio) {
-        $links.='<li>';
-        $links.='<a href="';
-        $links.=$traduccio['post_url'];
-        $links.='" title="'; //TODO afegir-hi "Traducció al XXX de YYY
-        $links.=$traduccio['post_title'];
-        $links.='">';
-        $links.=$traduccio['post_language'];
-        $links.='</a>';
-        $links.='</li>';
-    }
     $content = '<ul class="' . $class . '">' . $links . '</ul>';
+//    $content .= '<pre style="display:none">' . print_r($blogs, true) . '</pre>';
     return $content;
 }
 
@@ -604,8 +625,8 @@ function demomentsomtres_language_body_classes($classes) {
     $body_classes = $options['body_classes'];
     if ('' != $body_classes):
         $newClasses = explode(',', $body_classes);
-        foreach($newClasses as $c):
-        $classes[] = 'dms3-language-'.trim($c);
+        foreach ($newClasses as $c):
+            $classes[] = 'dms3-language-' . trim($c);
         endforeach;
     endif;
     return $classes;
