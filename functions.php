@@ -270,7 +270,7 @@ function QuBicIdioma_crearContingutLinks($class = 'qibdip-idioma-post-translatio
                 $links.='<a href="';
                 $links.=$detalls->siteurl;
                 $links.='" title="';
-                $links.=$blog['language'];
+                $links.=$detalls->blogname;
                 $links.='">';
                 $links.=$blog['language'];
                 $links.='</a>';
@@ -296,7 +296,7 @@ function QuBicIdioma_crearContingutLinks($class = 'qibdip-idioma-post-translatio
         }
     endif;
     $content = '<ul class="' . $class . '">' . $links . '</ul>';
-//    $content .= '<pre style="display:none">' . print_r($blogs, true) . '</pre>';
+    $content .= '<pre style="display:none">' . print_r($blogs, true) . '</pre>';
     return $content;
 }
 
