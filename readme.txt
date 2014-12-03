@@ -3,7 +3,7 @@ Contributors: marcqueralt
 Tags: multilanguage, network, seo
 Donate link: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
 Requires at least: 3.8
-tested up to: 3.9.1
+tested up to: 4.0.1
 Stable tag: head
 
 DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
