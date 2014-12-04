@@ -46,6 +46,10 @@ The recommended usage mode (supose required languages catalan and english) is ha
 A french user when looking for http://demomentsomtres.com will be redirected to http://demomentsomtres.com/english as it is the default mode.
 
 When you're writting a content, a metabox whit the candidate translations is shown in order to link a component with all its translations.
+= Contributors and translators =
+Thank you to:
+* Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com) for the Serbian translation
+
 == Installation ==
 
 It can be installed as any other WordPress plugin.
@@ -63,6 +67,8 @@ You should add the following code just after `RewriteBase /` in .htaccess file
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
+= 1.8.2 =
+* Serbian language added thanks to Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com)
 
 = 1.8.1 =
 * Frontpage link title updated
