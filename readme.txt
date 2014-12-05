@@ -1,7 +1,7 @@
 === DeMomentSomTres Language ===
 Contributors: marcqueralt
-Tags: multilanguage, network, multisite, seo, language, translation, translate
 Donate link: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
+Tags: multilanguage, network, multisite, seo, language, translation, translate
 Requires at least: 3.8
 tested up to: 4.0.1
 Stable tag: head
@@ -50,7 +50,7 @@ When you're writting a content, a metabox whit the candidate translations is sho
 
 = Contributors and translators =
 
-Thank you to:
+Thanks to:
 
 * Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com) for the Serbo-Croatian translation
 
