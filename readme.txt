@@ -65,6 +65,7 @@ We recommend to use shortcode mode in order to avoid component collitions as the
 == FAQ ==
 
 = when I access my page with www destination is lost =
+
 You should add the following code just after `RewriteBase /` in .htaccess file
 
 `RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
