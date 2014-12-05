@@ -26,6 +26,7 @@ It allows to change from a content to its translations via easy links.
 
 = History & raison d'être =
 In 2011 we needed a multilanguage plugin allowing:
+
 * Content translation.
 * Integration with WordPress SEO by Yoast.
 * Different communication and SEO strategies based on language.
@@ -46,8 +47,11 @@ The recommended usage mode (supose required languages catalan and english) is ha
 A french user when looking for http://demomentsomtres.com will be redirected to http://demomentsomtres.com/english as it is the default mode.
 
 When you're writting a content, a metabox whit the candidate translations is shown in order to link a component with all its translations.
+
 = Contributors and translators =
+
 Thank you to:
+
 * Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com) for the Serbo-Croatian translation
 
 == Installation ==
@@ -146,63 +150,63 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 * Use default language prefix if none is found
 
-=1.1.5=
+= 1.1.5 =
 
 * bug: post language selector shown even if post type is not translatable.
 
-=1.1=
+= 1.1 =
 
 * Landing site mode: allows to jump to the other sites based on the browser language
 
-=1.0.2=
+= 1.0.2 =
 
 * Duplicate '/' sign in address solved
 
-=1.0.1=
+= 1.0.1 =
 
 * Debugging mistake solved
 
-=1.0=
+= 1.0 =
 
 * Added to wordpress.org subversion
 
-=0.8=
+= 0.8 =
 
 * Rebranding of component to new company name: DeMomentSomTres.
 * Translate Idioma to Language.
 * Solved Warning on admin when no language is configured.
 
-=0.7=
+= 0.7 =
 
 * Additional text only widget on div qibdip_Idioma_Text.
 
-=0.6=
+= 0.6 =
 
 * Set reciprocal translations. From one bloc you can update all translations relationships. It assumes that the user is allowed to do all operations.
 * Rename of links div in post
 
-=0.5=
+= 0.5 =
 
 * Page: Add fields to translation allowing to link to other translations of pages.
 * Custom posts: Add fields to translations
 * Take into account post types settings on links
 
-=0.4=
+= 0.4 =
 
 * Settings: Allows to choose the post_types affected by translation. Limited functionality to administration.
 * Take blog status into account
 
-=0.3=
+= 0.3 =
 
 * Post: Link to post translation
 * Header: Link on header to go to other site translations
 
-=0.2=
+= 0.2 =
 
 * File structure change
 * Widget Language Chooser
 * Bloc change based on language
 
-=0.1=
+= 0.1 =
 
 * Initial release
