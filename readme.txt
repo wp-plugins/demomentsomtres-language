@@ -60,16 +60,22 @@ It can be installed as any other WordPress plugin.
 
 In order to work properly, WordPress Multisite MUST be installed and configured.
 
-We recommend to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured.
+We have been recommending to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured. We have decided to mantain only shortcode mode and stop development of "non shortcode mode".
 
 == FAQ ==
 
-= when I access my page with www destination is lost =
+= When I access my page with www destination is lost =
 
 You should add the following code just after `RewriteBase /` in .htaccess file
 
 `RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
+
+= Can I use "non-shortcode" mode" =
+
+We don't recomend to use this mode.
+
+Furthermore, we are planning to stop developing the non-shortcode mode as it is not being used very much and there are problems with plugins using the_content filter not the right way.
 
 == Changelog ==
 = 1.8.2 =
