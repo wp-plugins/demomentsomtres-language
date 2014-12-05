@@ -1,6 +1,6 @@
 === DeMomentSomTres Language ===
 Contributors: marcqueralt
-Tags: multilanguage, network, seo
+Tags: multilanguage, network, multisite, seo, language, translation, translate
 Donate link: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
 Requires at least: 3.8
 tested up to: 4.0.1
@@ -40,15 +40,15 @@ As we didn't find it, we decided to implement it and use it.
 The recommended usage mode (supose required languages catalan and english) is having 3 instances of WordPress:
 
 1. Landing site configured in landing mode in order to redirect the users based on their languages preferences. For instance http://demomentsomtres.com/
-2. Catalan site with catalan language set. Example address http://demomentsomtres.com/catala/
-3. English site with englis language set and default site mark. Example address http://demomentsomtres.com/english/
+1. Catalan site with catalan language set. Example address http://demomentsomtres.com/catala/
+1. English site with englis language set and default site mark. Example address http://demomentsomtres.com/english/
 
 A french user when looking for http://demomentsomtres.com will be redirected to http://demomentsomtres.com/english as it is the default mode.
 
 When you're writting a content, a metabox whit the candidate translations is shown in order to link a component with all its translations.
 = Contributors and translators =
 Thank you to:
-* Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com) for the Serbian translation
+* Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com) for the Serbo-Croatian translation
 
 == Installation ==
 
@@ -68,7 +68,7 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 
 == Changelog ==
 = 1.8.2 =
-* Serbian language added thanks to Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com)
+* Serbo-Croatian language added thanks to Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com)
 
 = 1.8.1 =
 * Frontpage link title updated
@@ -96,53 +96,53 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]`
 = 1.3 =
 * libraries compatibility upgrade
 
-=1.2.1=
+= 1.2.1 =
 * skip some problematic redirects
 
-=1.2.05=
+= 1.2.05 =
 * javascript optimization: javascript loaded only if required
 * css optimization: css loaded only if required
 * redirect errors
 * force reciprocal update on content save by default
 
-=1.2.04=
+= 1.2.04 =
 * redirect landing site to default site via 301 instead of 302.
 
-=1.2.03=
+= 1.2.03 =
 * post translation widget can be shown even if empty
 
-=1.2.02=
+= 1.2.02 =
 * bug solved: debug info showed to solve 1.2.01 bug not removed.
 
-=1.2.01=
+= 1.2.01 =
 * bug solved: when siteurl contains upper cases it started a redirection cycle.
 
-=1.2=
+= 1.2 =
 * shortcode [DeMomentSomTres-Language class="optional classes"] to show all translations of the main content.
 * widget Language: post translations
 * shortcode mode to avoid traditional filters.
 
-=1.1.11=
+= 1.1.11 =
 
 * bug when installed in a directory instead of the root of the web.
 
-=1.1.10=
+= 1.1.10 =
 
 * avoid showing translation on widgets calling custom types.
 
-=1.1.9=
+= 1.1.9 =
 
 * redirect to language keeping url tail
 
-=1.1.8=
+= 1.1.8 =
 
 * minor bugs solving
 
-=1.1.7=
+= 1.1.7 =
 
 * Landing mode optimization
 
-=1.1.6=
+= 1.1.6 =
 
 * Use default language prefix if none is found
 
