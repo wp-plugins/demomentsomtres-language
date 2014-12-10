@@ -78,6 +78,10 @@ We don't recomend to use this mode.
 Furthermore, we are planning to stop developing the non-shortcode mode as it is not being used very much and there are problems with plugins using the_content filter not the right way.
 
 == Changelog ==
+= 1.8.3 =
+* bug fix: wrong initial redirection if wordpress is installed in a directory different from root
+* Https protocol management
+
 = 1.8.2 =
 * Serbo-Croatian language added thanks to Borisa Djuraskovic from [http://www.webhostinghub.com](http://www.webhostinghub.com)
 

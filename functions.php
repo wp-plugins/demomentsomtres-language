@@ -265,7 +265,7 @@ function QuBicIdioma_crearContingutLinks($class = 'qibdip-idioma-post-translatio
         $blog_id = get_current_blog_id();
         foreach ($blogs as $blog):
             if ($blog['blog_id'] != $blog_id):
-                $detalls=$blog['details'];
+                $detalls = $blog['details'];
                 $links.='<li>';
                 $links.='<a href="';
                 $links.=$detalls->siteurl;
@@ -506,8 +506,18 @@ function demomentsomtres_language_destination() {
         endforeach;
     endif;
     //$cua = str_replace(strtolower(site_url()), '', $_SERVER['SCRIPT_URI']);
-    $cua = $_SERVER['SCRIPT_URL'];
-    $destination.=$cua; /* 1.1.9 */
+    //$cua = $_SERVER['SCRIPT_URL'];//1.8.3 MQB--
+    //MQB 1.8.3++ Inici
+    $parseURL = explode('://',$_SERVER['SCRIPT_URI']);
+    $parseSiteURL = explode('://',site_url());
+    $parseDest = explode('://',$destination);
+    $cua = str_ireplace($parseSiteURL[1], '', $parseURL[1]);
+    $destination = $parseSiteURL[0] . '://' . $parseDest[1] . $cua;
+    //TODO tema protocol
+    //MQB 1.8.3++ Fi
+    //$destination.=$cua; /* 1.1.9 */ MQB 1.8.3 --
+//    echo '<pre>parseURL:' . print_r($parseURL, true) . '</pre>';
+//    echo '<pre>parseDest:' . print_r($parseDest, true) . '</pre>';
 //    echo '<pre>$_SERVER:' . print_r($_SERVER, true) . '</pre>';
 //    echo '<pre>$_REQUEST:' . print_r($_REQUEST, true) . '</pre>';
 //    echo '<pre>site_url():' . site_url() . '</pre>';
