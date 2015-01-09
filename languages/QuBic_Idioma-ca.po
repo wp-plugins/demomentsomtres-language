@@ -1,0 +1,342 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DeMomentSomTres Language v1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-01-05 13:52:26+0000\n"
+"Last-Translator: marc@dabadisseny.com\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: demomentsomtres_language.php:125
+#: demomentsomtres_language.php:343
+#@ QuBic_Idioma
+msgid "Language"
+msgstr "Llengua"
+
+#: demomentsomtres_language.php:126
+#@ QuBic_Idioma
+msgid "Post Types"
+msgstr "Tipus de post"
+
+#: demomentsomtres_language.php:127
+#@ QuBic_Idioma
+msgid "Current Settings"
+msgstr "Configuració actual"
+
+#: demomentsomtres_language.php:130
+#@ QuBic_Idioma
+msgid "Language text"
+msgstr "Nom de la llengua"
+
+#: demomentsomtres_language.php:131
+#@ QuBic_Idioma
+msgid "Order"
+msgstr "Ordre"
+
+#: demomentsomtres_language.php:154
+#@ QuBic_Idioma
+msgid "MultiLanguage"
+msgstr "MultiIdioma"
+
+#: demomentsomtres_language.php:158
+#@ QuBic_Idioma
+msgid "Save Changes"
+msgstr "Desa els canvis"
+
+#: demomentsomtres_language.php:835
+#@ QuBic_Idioma
+msgid "N/A"
+msgstr "N/A"
+
+#: demomentsomtres_language.php:204
+#@ QuBic_Idioma
+msgid "Multisite set."
+msgstr "Configuració Multi Site activa."
+
+#: demomentsomtres_language.php:206
+#@ QuBic_Idioma
+msgid "Multisite not set."
+msgstr "Configuració Multi Site no activa."
+
+#: demomentsomtres_language.php:208
+#@ QuBic_Idioma
+msgid "This plugin needs a network set in order to work."
+msgstr "Aquesta extensió necessita un multisite configurat per a funcionar."
+
+#: demomentsomtres_language.php:192
+#@ QuBic_Idioma
+msgid "Post types that can be translated."
+msgstr "Tipus d'entrades que poden ésser traduïdes."
+
+#: demomentsomtres_language.php:743
+#@ QuBic_Idioma
+msgid "Translations"
+msgstr "Traduccions"
+
+#: demomentsomtres_language.php:797
+#@ QuBic_Idioma
+msgid "You can set the relationship between the content and its translations."
+msgstr "Permet establir la correspondència entre els continguts i les seves traduccions."
+
+#: demomentsomtres_language.php:809
+#@ QuBic_Idioma
+msgid "Reciprocal update?"
+msgstr "Actualització recíproca?"
+
+#: demomentsomtres_language.php:811
+#@ QuBic_Idioma
+msgid "If you select this option, all refered translations will be also linked to the current one. You would not need to update the relationship in other blogs."
+msgstr "Si seleccioneu aquesta opció, totes les traduccions aquí referides s'actualitzaran per a que es vinculin entre elles. No caldrà que accedeixis als altres blocs per actualitzar les actualitzacions."
+
+#: demomentsomtres_language.php:846
+#@ QuBic_Idioma
+msgid "No translation"
+msgstr "Sense traducció"
+
+#: demomentsomtres_language.php:47
+#@ QuBic_Idioma
+msgid "The plugin DeMomentSomTres Language requires the free DeMomentSomTres Tools plugin."
+msgstr "L'extensió DeMomentSomTres Language necessita l'extensió gratuïta DeMomentSomTres Tools."
+
+#: demomentsomtres_language.php:49
+#@ QuBic_Idioma
+msgid "Download it here"
+msgstr "Descarregar-lo aquí"
+
+#: demomentsomtres_language.php:116
+#: demomentsomtres_language.php:343
+#: demomentsomtres_language.php:355
+#@ QuBic_Idioma
+msgid "DeMomentSomTres Language"
+msgstr "DeMomentSomTres Language"
+
+#: demomentsomtres_language.php:124
+#@ QuBic_Idioma
+msgid "Mode"
+msgstr "Mode"
+
+#: demomentsomtres_language.php:128
+#@ QuBic_Idioma
+msgid "Groups Configuration"
+msgstr "Configuració de grups"
+
+#: demomentsomtres_language.php:129
+#@ QuBic_Idioma
+msgid "Landing mode"
+msgstr "Mode aterratge"
+
+#: demomentsomtres_language.php:132
+#@ QuBic_Idioma
+msgid "Browser Languages"
+msgstr "Llenguatges del navegador"
+
+#: demomentsomtres_language.php:133
+#@ QuBic_Idioma
+msgid "Default Site"
+msgstr "Lloc web per defecte"
+
+#: demomentsomtres_language.php:134
+#@ QuBic_Idioma
+msgid "Body classes"
+msgstr "Classes de body"
+
+#: demomentsomtres_language.php:163
+#@ QuBic_Idioma
+msgid "Options"
+msgstr "Opcions"
+
+#: demomentsomtres_language.php:175
+#@ QuBic_Idioma
+msgid "Landing site"
+msgstr "Pàgina d'aterratge"
+
+#: demomentsomtres_language.php:175
+#@ QuBic_Idioma
+msgid "Site redirects based on browser language."
+msgstr "Aquest lloc redirigeix en funció del llenguatge del navegador."
+
+#: demomentsomtres_language.php:176
+#@ QuBic_Idioma
+msgid "Language site"
+msgstr "Llengua del web"
+
+#: demomentsomtres_language.php:176
+#@ QuBic_Idioma
+msgid "Site shows specific language"
+msgstr "El lloc web mostra un llenguatge específic"
+
+#: demomentsomtres_language.php:185
+#@ QuBic_Idioma
+msgid "Language settings for current blog. Ignored for landing site."
+msgstr "Configuració d'idioma pel blog actual. Ignorats per a llocs d'aterratge."
+
+#: demomentsomtres_language.php:212
+#@ QuBic_Idioma
+msgid "This is a landing site"
+msgstr "Aquest lloc és una web d'aterratge"
+
+#: demomentsomtres_language.php:214
+#@ QuBic_Idioma
+msgid "This is not a landing site."
+msgstr "Aquesta web no és d'aterratge."
+
+#: demomentsomtres_language.php:217
+#@ QuBic_Idioma
+msgid "Your browser default language: "
+msgstr "Idioma per defecte del teu navegador:"
+
+#: demomentsomtres_language.php:219
+#@ QuBic_Idioma
+msgid "You would be redirected to: "
+msgstr "Et redirigiria a:"
+
+#: demomentsomtres_language.php:224
+#@ QuBic_Idioma
+msgid "Group configuration is enabled"
+msgstr "La configuració de grups està activada."
+
+#: demomentsomtres_language.php:227
+#@ QuBic_Idioma
+msgid "ERROR: No group set for this site."
+msgstr "ERROR: no hi ha cap grup per aquest lloc web."
+
+#: demomentsomtres_language.php:229
+#@ QuBic_Idioma
+msgid "This blog belongs to site group"
+msgstr "Aquest lloc correspont al grup"
+
+#: demomentsomtres_language.php:230
+#@ QuBic_Idioma
+msgid "whose members are:"
+msgstr "els membres que el componen són:"
+
+#: demomentsomtres_language.php:234
+#@ QuBic_Idioma
+msgid "ID"
+msgstr "ID"
+
+#: demomentsomtres_language.php:237
+#@ QuBic_Idioma
+msgid "Type"
+msgstr "Tipus"
+
+#: demomentsomtres_language.php:240
+#@ QuBic_Idioma
+msgid "URL"
+msgstr "URL"
+
+#: demomentsomtres_language.php:243
+#@ QuBic_Idioma
+msgid "Default site"
+msgstr "Lloc per defecte"
+
+#: demomentsomtres_language.php:246
+#@ QuBic_Idioma
+msgid "Browser languages"
+msgstr "Llengües del navegador"
+
+#: demomentsomtres_language.php:252
+#: demomentsomtres_language.php:701
+#@ QuBic_Idioma
+msgid "LANDING"
+msgstr "ATERRATGE"
+
+#: demomentsomtres_language.php:266
+#@ QuBic_Idioma
+msgid "Yes"
+msgstr "Sí"
+
+#: demomentsomtres_language.php:276
+#@ QuBic_Idioma
+msgid "Group configuration is not enabled"
+msgstr "La configuració de grups no està activa"
+
+#: demomentsomtres_language.php:302
+#@ QuBic_Idioma
+msgid "Comma separated list"
+msgstr "Llista separada per comes"
+
+#: demomentsomtres_language.php:315
+#@ QuBic_Idioma
+msgid "Comma separated list of classes to add"
+msgstr "Llista de les classes a afegir, separades per coma"
+
+#: demomentsomtres_language.php:343
+#: demomentsomtres_language.php:355
+#@ QuBic_Idioma
+msgid "MultiSite Settings"
+msgstr "Configuració multisite"
+
+#: demomentsomtres_language.php:369
+#@ QuBic_Idioma
+msgid "General Configuration"
+msgstr "Configuració general"
+
+#: demomentsomtres_language.php:372
+#@ QuBic_Idioma
+msgid "Use Groups"
+msgstr "Usa grups"
+
+#: demomentsomtres_language.php:378
+#@ QuBic_Idioma
+msgid "Group definition"
+msgstr "Definició de grup"
+
+#: demomentsomtres_language.php:394
+#@ QuBic_Idioma
+msgid "Save MultiSite Settings"
+msgstr "Desar configuració Multisite"
+
+#: demomentsomtres_language.php:1086
+#@ QuBic_Idioma
+msgid "Shows text links to different languages homepages"
+msgstr "Mostra enllaços de text a les pàgines d'inici de les diferets llengües"
+
+#: demomentsomtres_language.php:1088
+#@ QuBic_Idioma
+msgid "Language Home Links"
+msgstr "Llengua: enllaços a l'inici"
+
+#: demomentsomtres_language.php:1127
+#@ QuBic_Idioma
+msgid "Shows the translations of the main content"
+msgstr "Mostra enllaços al contingut principal"
+
+#: demomentsomtres_language.php:1129
+#@ QuBic_Idioma
+msgid "Language: post translations"
+msgstr "Llengua: traduccions del contingut"
+
+#: demomentsomtres_language.php:1135
+#@ QuBic_Idioma
+msgid "Title:"
+msgstr "Títol:"
+
+#: demomentsomtres_language.php:1136
+#@ QuBic_Idioma
+msgid "Always shown:"
+msgstr "Mostrar sempre:"
+
+#: demomentsomtres_language.php:375
+#@ QuBic_Idioma
+msgid "If this field is not checked any other configuration parameter in this screen will be ignored"
+msgstr "Si aquest camp no està marcat qualsevol altre paràmetre d'aquesta pantalla s'ignorarà"
+
+#: demomentsomtres_language.php:379
+#@ QuBic_Idioma
+msgid "Create groups in order to manage redirection. Groups can be any letter or number combination. Each group must contain one and only one Landing site."
+msgstr "Crea grups per tal de gestionar les redireccions. Els grups poden ser qualsevol combinació de lletres i número. Cadascún ha de contenir, un i només un, lloc d'aterratge."
+
