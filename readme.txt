@@ -84,6 +84,9 @@ You need to enter Network manager > Language and setup the groups.
 Group name can be any string or number and every group must contain a Landing site and as much languages as you want.
 
 == Changelog ==
+= 2.0.1 =
+* bug fix: Home links widget failure
+
 = 2.0 =
 * Code full rewrite to use classes and DeMomentSomTres Tools free plugin.
 * Site groups to allow multiple landing sites.
