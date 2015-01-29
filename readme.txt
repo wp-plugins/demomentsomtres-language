@@ -84,6 +84,10 @@ You need to enter Network manager > Language and setup the groups.
 Group name can be any string or number and every group must contain a Landing site and as much languages as you want.
 
 == Changelog ==
+= 2.0.3 =
+* saving config problem solved.
+* Message shown in config is site is not public
+
 = 2.0.2 =
 * bug fix: Fatal Error line 1018 solved
 

@@ -3,7 +3,7 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 2.0.2
+  Version: 2.0.3
   Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com
   License: GPLv2 or later
@@ -136,7 +136,7 @@ class DeMomentSomTresLanguage {
         foreach ($array as $key => $value):
             $etiqueta = $value->labels->name;
             $nom = $this->postTypeOptionName($key);
-            $valor = $this->isPostTypeToTranslate($key);
+            $valor = $this->isPostTypeToTranslate($key, true);
             $args = array(
                 'nom' => $nom,
                 'valor' => $valor,
@@ -159,7 +159,7 @@ class DeMomentSomTresLanguage {
         echo '</form>';
         echo '</div>';
         ?>
-        <div style="background-color:#eee;/*display:none;*/">
+        <div style="background-color:#eee;display:none;">
             <h2><?php _e('Options', self::TEXT_DOMAIN); ?></h2>
             <pre style="font-size:0.8em;"><?php print_r(get_option(self::OPTIONS)); ?></pre>
         </div>
@@ -171,10 +171,15 @@ class DeMomentSomTresLanguage {
      * @since 2.0
      */
     function admin_section_mode_text() {
+        global $blog_id;
         echo '<ul>';
         echo '<li><strong>' . __("Landing site", self::TEXT_DOMAIN) . '</strong>: ' . __("Site redirects based on browser language.", self::TEXT_DOMAIN) . '</li>';
         echo '<li><strong>' . __("Language site", self::TEXT_DOMAIN) . '</strong>: ' . __("Site shows specific language", self::TEXT_DOMAIN) . '</li>';
         echo '</ul>';
+        $blog_info = get_blog_details($blog_id);
+        if ($blog_info->public == 0):
+            echo '<p style="color:red;font-weight:bolder;font-size:1.5em;">' . __("This site is not set to public. It would not be considered", self::TEXT_DOMAIN) . '</p>';
+        endif;
     }
 
     /**
@@ -263,7 +268,7 @@ class DeMomentSomTresLanguage {
                     echo $b['details']->siteurl;
                     echo '</td>';
                     echo '<td>';
-                    echo $b['default_site']==1?__('Yes',self::TEXT_DOMAIN):'';
+                    echo $b['default_site'] == 1 ? __('Yes', self::TEXT_DOMAIN) : '';
                     echo '</td>';
                     echo '<td>';
                     echo $b['browser_langs'];
@@ -273,7 +278,7 @@ class DeMomentSomTresLanguage {
                 echo '</tbody></table>';
             endif;
         else:
-            echo '<p>' . __('Group configuration is not enabled',self::TEXT_DOMAIN) . '</p>';
+            echo '<p>' . __('Group configuration is not enabled', self::TEXT_DOMAIN) . '</p>';
         endif;
     }
 
@@ -321,12 +326,12 @@ class DeMomentSomTresLanguage {
      * @updated 0.5 Change on parameter structure
      * @uses QuBicIdioma_admin_check
      */
-    function admin_fields_types($args) {
+    function admin_fields_types(array $args) {
         if (isset($args['nom'])):
             if (!isset($args['valor'])):
-                $args['valor'] = 0;
+                $args['valor'] = '';
             endif;
-            DeMomentsomtresTools::adminHelper_inputArray(self::OPTIONS, $nom, $valor, array('type' => 'checkbox'));
+            DeMomentsomtresTools::adminHelper_inputArray(self::OPTIONS, $args['nom'], $args['valor'], array('type' => 'checkbox'));
         endif;
     }
 
@@ -336,6 +341,9 @@ class DeMomentSomTresLanguage {
      * @since 2.0
      */
     function admin_validate_options($input = array()) {
+        echo '<pre>';
+        print_r($input);
+        exit;
         return $input;
     }
 
@@ -761,9 +769,10 @@ class DeMomentSomTresLanguage {
 
     /**
      * Retrieves QuBicIdioma option to decide if a posttype can be translated
+     * @param boolean $textual if set to true result is 'on' or empty. if set to false answer is boolean.
      * @since 2.0
      */
-    function isPostTypeToTranslate($post_type) {
+    function isPostTypeToTranslate($post_type, $textual = false) {
         $opcions = get_option(self::OPTIONS);
         $nom_opcio = $this->postTypeOptionName($post_type);
         $valor = '';
@@ -772,7 +781,11 @@ class DeMomentSomTresLanguage {
                 $valor = $opcions[$nom_opcio];
             endif;
         endif;
-        $result = ('on' == $valor);
+        if (!$textual):
+            $result = ('on' == $valor);
+        else:
+            $result = $valor;
+        endif;
         return $result;
     }
 
