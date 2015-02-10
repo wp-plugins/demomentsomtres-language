@@ -62,6 +62,8 @@ In order to work properly, WordPress Multisite MUST be installed and configured.
 
 We have been recommending to use shortcode mode in order to avoid component collitions as the_content is not allways correctly configured. We have decided to mantain only shortcode mode and stop development of "non shortcode mode".
 
+If upgrading to 2.1, you should enter every blog and save settings again. You may need to save again all post, pages and translated content. 
+
 == FAQ ==
 
 = When I access my page with www destination is lost =
@@ -84,6 +86,10 @@ You need to enter Network manager > Language and setup the groups.
 Group name can be any string or number and every group must contain a Landing site and as much languages as you want.
 
 == Changelog ==
+= 2.1 =
+* global options used in order to reduce database and load
+* Hreflang links added
+
 = 2.0.3 =
 * saving config problem solved.
 * Message shown in config is site is not public

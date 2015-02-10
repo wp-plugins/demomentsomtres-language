@@ -1,11 +1,11 @@
 <?php
 /*
   Plugin Name: DeMomentSomTres Language
-  Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/
+  Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/?utm_source=WPPlugins&utm_medium=Plugin&utm_campaign=Language
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 2.0.3
-  Author: DeMomentSomTres
-  Author URI: http://www.DeMomentSomTres.com
+  Version: 2.1
+ Author: DeMomentSomTres
+  Author URI: http://www.DeMomentSomTres.com?utm_source=WPPlugins&utm_medium=Author&utm_campaign=Language
   License: GPLv2 or later
  */
 
@@ -72,10 +72,13 @@ class DeMomentSomTresLanguage {
     const FIELDDEFAULTSITE = 'default_site';
     const FIELDBODYCLASSES = 'body_classes';
     const IDIOMA_PREFIX = 'QuBicIdioma_relation-';
+    const LANGUAGEURL = 'dms3Language_related-';
+    const LANGUAGETITLE = 'dms3Language_title-';
     const NETWORKOPTIONS = "dms3Language";
     const NETWORKGROUPS = "groups";
     const NETWORKFIELDUSEGROUPS = "useGroups";
     const NETWORKSUBMIT = "dms3LanguageSubmit";
+    const GLOBALOPTIONS = 'dms3LanguageGlobal';
 
     private $pluginURL;
     private $pluginPath;
@@ -97,6 +100,7 @@ class DeMomentSomTresLanguage {
      * @since 2.0
      */
     function plugin_init() {
+        $option = self::OPTIONS;
         load_plugin_textdomain(DMS3_LANGUAGE_TEXT_DOMAIN, false, $this->langDir);
         add_filter('get_blogs_of_user', array($this, 'mysites'));
         add_action('admin_menu', array(&$this, 'admin_menu'));
@@ -106,6 +110,7 @@ class DeMomentSomTresLanguage {
         add_action('widgets_init', array($this, 'widgets_init'));
         add_action('add_meta_boxes', array($this, 'addRelationship'));
         add_action('save_post', array($this, 'metaboxRelationshipSave'));
+        add_action('wp_head', array($this, 'wp_head_add_hreflang'));
         add_shortcode('DeMomentSomTres-Language', array($this, 'shortcode'));
     }
 
@@ -162,6 +167,8 @@ class DeMomentSomTresLanguage {
         <div style="background-color:#eee;display:none;">
             <h2><?php _e('Options', self::TEXT_DOMAIN); ?></h2>
             <pre style="font-size:0.8em;"><?php print_r(get_option(self::OPTIONS)); ?></pre>
+            <h2><?php _e('Global Options', self::TEXT_DOMAIN); ?></h2>
+            <pre style="font-size:0.8em;"><?php print_r(get_site_option(self::GLOBALOPTIONS)); ?></pre>
         </div>
         <?php
     }
@@ -341,9 +348,14 @@ class DeMomentSomTresLanguage {
      * @since 2.0
      */
     function admin_validate_options($input = array()) {
-        echo '<pre>';
-        print_r($input);
-        exit;
+        global $blog_id;
+        $inputUpdated = $input;
+        $inputUpdated['siteurl'] = site_url();
+        $inputUpdated['blogid'] = $blog_id;
+        $inputUpdated['locale'] = get_locale();
+        $gOption = get_site_option(self::GLOBALOPTIONS);
+        $gOption[$blog_id] = $inputUpdated;
+        update_site_option(self::GLOBALOPTIONS, $gOption);
         return $input;
     }
 
@@ -648,7 +660,7 @@ class DeMomentSomTresLanguage {
      * @return function
      * @since 0.2
      */
-    function makeSortFunction($field) {
+    public function makeSortFunction($field) {
         $code = "return strnatcmp(\$a['$field'], \$b['$field']);";
         return create_function('$a,$b', $code);
     }
@@ -703,8 +715,10 @@ class DeMomentSomTresLanguage {
      * @since 1.6
      */
     function mysites($blogs) {
+        $options = get_Site_option(self::GLOBALOPTIONS);
         foreach ($blogs as $blog):
-            $info = $this->getBlogOptions($blog->userblog_id);
+//            $info = $this->getBlogOptions($blog->userblog_id);
+            $info = $options[$blog->userblog_id];
             if (isset($info['landing_mode'])):
                 $blog->blogname = __('LANDING', self::TEXT_DOMAIN) . ' - ' . $blog->blogname;
             else:
@@ -835,6 +849,26 @@ class DeMomentSomTresLanguage {
     }
 
     /**
+     * Generate option name for URL linked to blog
+     * @param integer $blog_id
+     * @return string
+     * @since 2.1
+     */
+    function metaboxRelationshipURLName($blog_id) {
+        return self::LANGUAGEURL . $blog_id;
+    }
+
+    /**
+     * Generate option name for title linked to blog
+     * @param integer $blog_id
+     * @return string
+     * @since 2.1
+     */
+    function metaboxRelationshipTitleName($blog_id) {
+        return self::LANGUAGETITLE . $blog_id;
+    }
+
+    /**
      * Generates a select with all the titles of type especified
      * @param integer $blog_id
      * @param string $current current value
@@ -892,8 +926,21 @@ class DeMomentSomTresLanguage {
         $blocs = $this->getActiveBlogs('blog_id');
         foreach ($blocs as $bloc):
             $camp = $this->metaboxRelationshipFieldName($bloc['blog_id']);
+            $urloption = $this->metaboxRelationshipURLName($bloc['blog_id']);
+            $titleoption = $this->metaboxRelationshipTitleName($bloc['blog_id']);
             if (array_key_exists($camp, $_POST)):
                 update_post_meta($post_id, $camp, $_POST[$camp]);
+                switch_to_blog($bloc['blog_id']);
+                $url = get_permalink($_POST[$camp]);
+                $post = get_post($_POST[$camp]);
+                $title = $post->post_title;
+                restore_current_blog();
+                update_post_meta($post_id, $urloption, $url);
+                update_post_meta($post_id, $titleoption, $title);
+            else:
+                delete_post_meta($post_id, $camp);
+                delete_post_meta($post_id, $urloption);
+                delete_post_meta($post_id, $titleoption);
             endif;
         endforeach;
         $this->metaboxRelationshipReciprocalUpdate($post_id);
@@ -1031,24 +1078,39 @@ class DeMomentSomTresLanguage {
             $blocs = $this->getBlogs($criteri = 'blog_id');
             foreach ($blocs as $b):
                 $camp = $this->metaboxRelationshipFieldName($b['blog_id']);
+                $urloption = $this->metaboxRelationshipURLName($b['blog_id']);
+                $titleoption = $this->metaboxRelationshipTitleName($b['blog_id']);
                 if (isset($_POST[$camp])):
                     $valor = $_POST[$camp];
+                    $url = get_post_meta($post_id, $urloption, true);
+                    $title = get_post_meta($post_id, $titleoption, true);
                 else:
                     $valor = '';
+                    $url = '';
+                    $title = '';
                 endif;
-                $traduccions[$b['blog_id']] = $valor;
+                $traduccions[$b['blog_id']] = array(
+                    'post' => $valor,
+                    'url' => $url,
+                    'title' => $title
+                );
             endforeach;
             foreach ($blocs as $b):
                 if ($blog_id != $b['blog_id']):
                     switch_to_blog($b['blog_id']);
-                    foreach ($traduccions as $key => $nou_post):
+                    foreach ($traduccions as $key => $a):
                         $camp = $this->metaboxRelationshipFieldName($key);
-                        update_post_meta($traduccions[$b['blog_id']], $camp, $nou_post);
+                        $urloption = $this->metaboxRelationshipURLName($key);
+                        $titleoption = $this->metaboxRelationshipTitleName($key);
+                        update_post_meta($traduccions[$b['blog_id']]['post'], $camp, $a['post']);
+                        update_post_meta($traduccions[$b['blog_id']]['post'], $urloption, $a['url']);
+                        update_post_meta($traduccions[$b['blog_id']]['post'], $titleoption, $a['title']);
                     endforeach;
                     restore_current_blog();
                 endif;
             endforeach;
         endif;
+//        exit;
     }
 
     /**
@@ -1082,6 +1144,33 @@ class DeMomentSomTresLanguage {
         return count($traduccions) > 0;
     }
 
+    /**
+     * Configures hreflang links
+     * @global type $post
+     * @since 2.1
+     */
+    function wp_head_add_hreflang() {
+        global $blog_id;
+        global $post;
+
+        $blogs = get_site_option(DeMomentSomTresLanguage::GLOBALOPTIONS);
+        $compare = self::makeSortFunction('ordre');
+        usort($blogs, $compare);
+        $links = '';
+        foreach ($blogs as $b):
+            if ($b['blogid'] != $blog_id):
+                if ($b['literal'] != ''):
+                    $urlOption = $this->metaboxRelationshipURLName($b['blogid']);
+                    $url = get_post_meta($post->ID, $urlOption, true);
+                    if ($url != ''):
+                        $links.='<link rel="alternate" hreflang="'.$b['locale'].'" href="'.$url.'"/>';
+                    endif;
+                endif;
+            endif;
+        endforeach;
+        echo $links;
+    }
+
 }
 
 /**
@@ -1112,20 +1201,35 @@ class QuBicIdioma_Chooser_Text_Widget extends WP_Widget {
     function widget($args, $instance) {
         global $blog_id;
         global $dms3Language;
-        $llista = $dms3Language->getActiveBlogs();
+
+        $blogs = get_site_option(DeMomentSomTresLanguage::GLOBALOPTIONS);
+        if ($dms3Language->isGroupsEnabled()):
+            $ng = get_site_option(DeMomentSomTresLanguage::NETWORKOPTIONS);
+            $groups = $ng[DeMomentSomTresLanguage::NETWORKGROUPS];
+            $myGroup = $groups[$blog_id];
+            foreach ($blogs as $id => $data):
+                if ($groups[$id] != $myGroup):
+                    unset($blogs[$id]);
+                endif;
+            endforeach;
+        endif;
+        $compare = DeMomentSomTresLanguage::makeSortFunction('ordre');
+        usort($blogs, $compare);
         $output = '<div class="qibdip_Idioma_Text">';
-        foreach ($llista as $linia):
-            if ($linia['blog_id'] == $blog_id):
-                $output_inici = '<span class="qibdip_idioma_actual">';
-                $output_fi = '</span>';
-            else:
-                $output_inici = '<a href="' . DeMomentSomTresLanguage::createURL($linia['domain'], $linia['path']) . '">';
-                $output_fi = '</a>';
+        foreach ($blogs as $b):
+            if ($b['literal'] != ''):
+                if ($b['blogid'] == $blog_id):
+                    $output_inici = '<span class="qibdip_idioma_actual">';
+                    $output_fi = '</span>';
+                else:
+                    $output_inici = '<a href="' . $b['siteurl'] . '">';
+                    $output_fi = '</a>';
+                endif;
+                $output.='&nbsp;';
+                $output.=$output_inici;
+                $output.=$b['literal'];
+                $output.=$output_fi;
             endif;
-            $output.='&nbsp;';
-            $output.=$output_inici;
-            $output.=$linia['language'];
-            $output.=$output_fi;
         endforeach;
         $output.='</div>';
         echo $output;
@@ -1147,8 +1251,10 @@ class DeMomentSomTres_Post_Translations extends WP_Widget {
         $title = esc_attr($instance['title']);
         ?>
         <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', DeMomentSomTresLanguage::TEXT_DOMAIN); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label></p>
-        <p><label for="<?php echo $this->get_field_id('always'); ?>"><?php _e('Always shown:', DeMomentSomTresLanguage::TEXT_DOMAIN); ?> <input class="widefat" id="<?php echo $this->get_field_id('always'); ?>" name="<?php echo $this->get_field_name('always'); ?>" type="checkbox" <?php checked(isset($instance['always']) ? 1 : 0); ?>/></label></p>
         <?php
+        /*
+         *         <p><label for="<?php echo $this->get_field_id('always'); ?>"><?php _e('Always shown:', DeMomentSomTresLanguage::TEXT_DOMAIN); ?> <input class="widefat" id="<?php echo $this->get_field_id('always'); ?>" name="<?php echo $this->get_field_name('always'); ?>" type="checkbox" <?php checked(isset($instance['always']) ? 1 : 0); ?>/></label></p>
+         */
     }
 
     function update($new_instance, $old_instance) {
@@ -1157,25 +1263,42 @@ class DeMomentSomTres_Post_Translations extends WP_Widget {
     }
 
     function widget($args, $instance) {
+        global $blog_id;
         global $post;
         global $dms3Language;
+
         extract($args);
         $title = apply_filters('widget_title', $instance['title']);
-        $always = isset($instance['always']);
-        if ($dms3Language->isTranslated($post->ID)):
-            echo $before_widget;
-            if ($title)
-                echo $before_title . $title . $after_title;
-            echo $dms3Language->printLinks();
-            echo $after_widget;
-        else:
-            if ($always):
-                echo $before_widget;
-                if ($title)
-                    echo $before_title . $title . $after_title;
-                echo $after_widget;
+        $blogs = get_site_option(DeMomentSomTresLanguage::GLOBALOPTIONS);
+        $compare = DeMomentSomTresLanguage::makeSortFunction('ordre');
+        usort($blogs, $compare);
+        echo $before_widget;
+        if ($title)
+            echo $before_title . $title . $after_title;
+        $links = '';
+        foreach ($blogs as $b):
+            if ($b['blogid'] != $blog_id)
+                if ($b['literal'] != ''):
+                    $urlOption = $dms3Language->metaboxRelationshipURLName($b['blogid']);
+                    $titleOption = $dms3Language->metaboxRelationshipTitleName($b['blogid']);
+                    $url = get_post_meta($post->ID, $urlOption, true);
+                    $postTitle = get_post_meta($post->ID, $titleOption, true);
+                    if ($url != ''):
+                        $links.='<li>';
+                        $links.='<a href="';
+                        $links.=$url;
+                        $links.='" title="';
+                        $links.=$postTitle;
+                        $links.='">';
+                        $links.=$b['literal'];
+                        $links.='</a>';
+                        $links.='</li>';
+                    endif;
             endif;
-        endif;
+        endforeach;
+        $class = 'qibdip-idioma-post-translations';
+        echo '<ul class="' . $class . '">' . $links . '</ul>';
+        echo $after_widget;
     }
 
 }
