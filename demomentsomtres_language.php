@@ -3,7 +3,7 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/?utm_source=WPPlugins&utm_medium=Plugin&utm_campaign=Language
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 2.1
+  Version: 3.0
  Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com?utm_source=WPPlugins&utm_medium=Author&utm_campaign=Language
   License: GPLv2 or later
