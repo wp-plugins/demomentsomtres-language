@@ -942,7 +942,7 @@ class DeMomentSomTresLanguage {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return;
         if (defined('DOING_AJAX') && DOING_AJAX)
-            return $postID;
+            return $post_id;
         if ($post->post_status == 'trash' or $post->post_status == 'auto-draft')
             return $post_id;
         global $blog_id;
