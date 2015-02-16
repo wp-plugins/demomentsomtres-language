@@ -3,8 +3,8 @@
   Plugin Name: DeMomentSomTres Language
   Plugin URI: http://demomentsomtres.com/english/wordpress-plugins/demomentsomtres-language/?utm_source=WPPlugins&utm_medium=Plugin&utm_campaign=Language
   Description: DeMomentSomTres Language allows to have different instances of a blog using different languages on a network installation.
-  Version: 3.0
- Author: DeMomentSomTres
+  Version: 3.1
+  Author: DeMomentSomTres
   Author URI: http://www.DeMomentSomTres.com?utm_source=WPPlugins&utm_medium=Author&utm_campaign=Language
   License: GPLv2 or later
  */
@@ -109,7 +109,7 @@ class DeMomentSomTresLanguage {
         add_filter('body_class', array($this, 'bodyClasses'));
         add_action('widgets_init', array($this, 'widgets_init'));
         add_action('add_meta_boxes', array($this, 'addRelationship'));
-        add_action('save_post', array($this, 'metaboxRelationshipSave'));
+        add_action('save_post', array($this, 'metaboxRelationshipSave'), 10, 3);
         add_action('wp_head', array($this, 'wp_head_add_hreflang'));
         add_shortcode('DeMomentSomTres-Language', array($this, 'shortcode'));
     }
@@ -370,7 +370,8 @@ class DeMomentSomTresLanguage {
         else:
             $useGroups = '';
         endif;
-        $blogs = $this->getBlogs();
+        $blogs = $this->getBlogs('ordre', TRUE);
+//        echo '<pre>' . print_r($blogs, true) . '</pre>';
         echo "<div class='wrap'>";
         echo '<h2>' . __('DeMomentSomTres Language', self::TEXT_DOMAIN) . ' ' . __('MultiSite Settings', self::TEXT_DOMAIN) . '</h2>';
         if (isset($_POST[self::NETWORKSUBMIT])):
@@ -595,13 +596,14 @@ class DeMomentSomTresLanguage {
      * Gets blog and language information sort based on $criteri
      * @since 2.0
      * @param string $criteri order field used to sort
+     * @param boolean $skipGroupFilter do not filter groups -- added 3.0.1
      * @return array contains a record for each blog with fields ID,name,address,order
      * @uses QuBicIdioma_obtenir_opcions_bloc
      * @uses get_blog_list deprecated
      * @uses wp_get_sites() since version 1.4 and optimization to get only public sites 
      * Uses public=2 and public=1 in order to prevent problems
      */
-    function getBlogs($criteria = 'ordre') {
+    function getBlogs($criteria = 'ordre', $skipGroupFilter = FALSE) {
         $info = array();
         $blocs = wp_get_sites(array(
             'public' => 2,
@@ -627,7 +629,9 @@ class DeMomentSomTresLanguage {
             );
         endforeach;
         if ($this->isGroupsEnabled()):
-            $info = $this->groupPurge($info);
+            if (!$skipGroupFilter):
+                $info = $this->groupPurge($info);
+            endif;
         endif;
         $compare = $this->makeSortFunction($criteria);
         usort($info, $compare);
@@ -825,17 +829,28 @@ class DeMomentSomTresLanguage {
         $output.='<table class="widefat"><tbody>';
         foreach ($llista as $bloc):
             $current = $this->metaboxRelationshipRetrieve($post->ID, $this->metaboxRelationshipFieldName($bloc['blog_id']));
-            $output.= '<tr><td>';
-            $output.='<label for="' . $this->metaboxRelationshipFieldName($bloc['blog_id']) . '">' . $bloc['language'] . ':</label>';
-            $output.='</td><td><select name="' . $this->metaboxRelationshipFieldName($bloc['blog_id']) . '">';
-            $output.=$this->metaboxRelationshipSelectBox($bloc['blog_id'], $current, $post->ID, $post->post_type);
-            $output.= '</select>';
-            $output.= '</td></tr>';
+            $output .= '<tr><td>';
+            $output .='<label for="' . $this->metaboxRelationshipFieldName($bloc['blog_id']) . '">' . $bloc['language'] . ':</label>';
+            $output .= '</td><td>';
+            if ($bloc['blog_id'] != $blog_id):
+                if ($current != ''):
+                    $url = $bloc['path'] . 'wp-admin/post.php?action=edit&post=' . $current;
+                    $output .= '<a href="' . $url . '" target="_blank" class="button button-primary">' . __('Edit', self::TEXT_DOMAIN) . '</a>';
+                endif;
+            else:
+                $output .= '&nbsp;';
+            endif;
+            $output .='</td><td><select name="' . $this->metaboxRelationshipFieldName($bloc['blog_id']) . '">';
+            $output .=$this->metaboxRelationshipSelectBox($bloc['blog_id'], $current, $post->ID, $post->post_type);
+            $output .= '</select>';
+            $output .= '</td></tr>';
         endforeach;
         $output .= '</tbody></table>';
         $output .= '<p><label for="QuBicIdiomaReciprocal">' . __('Reciprocal update?', self::TEXT_DOMAIN) . '</label>';
         $output .= '<input type="checkbox" name="QuBicIdiomaReciprocal" checked="checked"/>';
         $output .= '<span class="description">' . __('If you select this option, all refered translations will be also linked to the current one. You would not need to update the relationship in other blogs.', self::TEXT_DOMAIN) . '</span></p>';
+        $output .= '<p>' . __('If you select --create-- a new content will be created on the destination site copying the content of this one.', self::TEXT_DOMAIN) . '</p>';
+        $output .= '<p>' . __('The edit button open the translation in edit mode in other screen.', self::TEXT_DOMAIN) . '</p>';
         echo $output;
     }
 
@@ -887,18 +902,20 @@ class DeMomentSomTresLanguage {
                     'numberposts' => -1,
                     'post_type' => $type,
                     'order_by' => 'post_title',
-                    'order' => 'ASC'
+                    'order' => 'ASC',
+                    'post_status' => array('publish', 'draft', 'pending'),
                 )
         );
         $output = '<option value="">' . __('No translation', self::TEXT_DOMAIN) . '</option>';
+        $output .= '<option value="-1">--' . __('Create', self::TEXT_DOMAIN) . '--</option>';
         foreach ($llista as $post):
-            $output.='<option value="';
-            $output.=$post->ID;
-            $output.='"';
-            $output.=selected($post->ID, $current, false);
-            $output.='>';
-            $output.=$post->post_title;
-            $output.='</option>';
+            $output .= '<option value="';
+            $output .= $post->ID;
+            $output .= '"';
+            $output .= selected($post->ID, $current, false);
+            $output .= '>';
+            $output .= $post->post_title;
+            $output .= '</option>';
         endforeach;
         restore_current_blog();
         return $output;
@@ -921,29 +938,160 @@ class DeMomentSomTresLanguage {
      * @param integer $post_id
      * @since 2.0
      */
-    function metaboxRelationshipSave($post_id) {
+    function metaboxRelationshipSave($post_id, $post, $update) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+        if (defined('DOING_AJAX') && DOING_AJAX)
+            return $postID;
+        if ($post->post_status == 'trash' or $post->post_status == 'auto-draft')
+            return $post_id;
         global $blog_id;
+        $this->metaboxRelationshipClear($post_id);
+        $actions = array();
         $blocs = $this->getActiveBlogs('blog_id');
         foreach ($blocs as $bloc):
             $camp = $this->metaboxRelationshipFieldName($bloc['blog_id']);
             $urloption = $this->metaboxRelationshipURLName($bloc['blog_id']);
             $titleoption = $this->metaboxRelationshipTitleName($bloc['blog_id']);
             if (array_key_exists($camp, $_POST)):
-                update_post_meta($post_id, $camp, $_POST[$camp]);
                 switch_to_blog($bloc['blog_id']);
                 $url = get_permalink($_POST[$camp]);
-                $post = get_post($_POST[$camp]);
-                $title = $post->post_title;
+                $unpost = get_post($_POST[$camp]);
+                $title = $unpost->post_title;
                 restore_current_blog();
-                update_post_meta($post_id, $urloption, $url);
-                update_post_meta($post_id, $titleoption, $title);
+                if (0 < $_POST[$camp]):
+                    $actions[] = array(
+                        'blog_id' => $bloc['blog_id'],
+                        'action' => 'save',
+                        'post_id' => $_POST[$camp],
+                        'url' => $url,
+                        'title' => $title,
+                        'postmeta' => $camp,
+                        'urlmeta' => $urloption,
+                        'titlemeta' => $titleoption
+                    );
+                elseif (-1 == $_POST[$camp]):
+                    $actions[] = array(
+                        'blog_id' => $bloc['blog_id'],
+                        'action' => 'create',
+                        'post_id' => $_POST[$camp],
+                        'url' => $url,
+                        'title' => $title,
+                        'postmeta' => $camp,
+                        'urlmeta' => $urloption,
+                        'titlemeta' => $titleoption
+                    );
+                else:
+                    $actions[] = array(
+                        'blog_id' => $bloc['blog_id'],
+                        'action' => 'delete',
+                    );
+                endif;
             else:
-                delete_post_meta($post_id, $camp);
-                delete_post_meta($post_id, $urloption);
-                delete_post_meta($post_id, $titleoption);
+                $actions[] = array(
+                    'blog_id' => $bloc['blog_id'],
+                    'action' => 'delete',
+                );
             endif;
         endforeach;
-        $this->metaboxRelationshipReciprocalUpdate($post_id);
+//        echo '<pre>' . print_r($actions, true) . '</pre>';
+        foreach ($actions as &$a):
+            if ($a['action'] == 'create'):
+                switch_to_blog($a['blog_id']);
+                remove_action('save_post', array($this, 'metaboxRelationshipSave'));
+                $newPost = $post;
+                unset($newPost->ID);
+                $newPost->post_status = 'draft';
+                $id = wp_insert_post($newPost, TRUE);
+                if ($id):
+                    $a['action'] = 'save';
+                    $a['post_id'] = $id;
+                    $newPost = get_post($id);
+                    $a['post_title'] = $newPost->post_title;
+                    $newUrl = get_permalink($id);
+                    $a['url'] = $newUrl;
+                    unset($newPost);
+                    unset($newUrl);
+                else:
+                    $a['action'] = 'delete';
+                endif;
+                add_action('save_post', array($this, 'metaboxRelationshipSave'), 10, 3);
+                restore_current_blog();
+            endif;
+        endforeach;
+//        echo '<pre>' . print_r($actions, true) . '</pre>';
+        foreach ($actions as $ac):
+//            echo '<pre>' . print_r($ac, true) . '</pre>';
+            if ($ac['action'] == 'save'):
+                update_post_meta($post_id, $ac['postmeta'], $ac['post_id']);
+                update_post_meta($post_id, $ac['urlmeta'], $ac['url']);
+                update_post_meta($post_id, $ac['titlemeta'], $ac['title']);
+            elseif ($ac['action'] == 'delete'):
+                delete_post_meta($post_id, $ac['postmeta']);
+                delete_post_meta($post_id, $ac['urlmeta']);
+                delete_post_meta($post_id, $ac['titlemeta']);
+            endif;
+        endforeach;
+//        $this->metaboxRelationshipReciprocalUpdate($post_id);
+        if (isset($_POST['QuBicIdiomaReciprocal'])):
+//            $blocs = $this->getBlogs($criteri = 'blog_id');
+//            $traduccions = array();
+//            foreach ($blocs as $b):
+//                $camp = $this->metaboxRelationshipFieldName($b['blog_id']);
+//                $urloption = $this->metaboxRelationshipURLName($b['blog_id']);
+//                $titleoption = $this->metaboxRelationshipTitleName($b['blog_id']);
+//                if (isset($_POST[$camp])):
+//                    $valor = $_POST[$camp];
+//                    $url = get_post_meta($post_id, $urloption, true);
+//                    $title = get_post_meta($post_id, $titleoption, true);
+//                else:
+//                    $valor = '';
+//                    $url = '';
+//                    $title = '';
+//                endif;
+//                $traduccions[$b['blog_id']] = array(
+//                    'post' => $valor,
+//                    'url' => $url,
+//                    'title' => $title
+//                );
+//            endforeach;
+            foreach ($blocs as $b):
+                if ($b['language'] != ''):
+                    if ($blog_id != $b['blog_id']):
+                        switch_to_blog($b['blog_id']);
+                        foreach ($actions as $acc):
+                            if ($acc['blog_id'] == $b['blog_id']):
+                                $pid = $acc['post_id'];
+                                $this->metaboxRelationshipClear($pid);
+                                foreach ($actions as $t):
+                                    update_post_meta($pid, $t['postmeta'], $t['post_id']);
+                                    update_post_meta($pid, $t['urlmeta'], $t['url']);
+                                    update_post_meta($pid, $t['titlemeta'], $t['title']);
+                                endforeach;
+                                unset($pid);
+                            endif;
+                        endforeach;
+                        restore_current_blog();
+                    endif;
+                endif;
+            endforeach;
+        endif;
+    }
+
+    /**
+     * 
+     * @since 3.1
+     */
+    function metaboxRelationshipClear($post_id) {
+        $blocs = $this->getBlogs('ordre', TRUE);
+        foreach ($blocs as $bloc):
+            $camp = $this->metaboxRelationshipFieldName($bloc['blog_id']);
+            $urloption = $this->metaboxRelationshipURLName($bloc['blog_id']);
+            $titleoption = $this->metaboxRelationshipTitleName($bloc['blog_id']);
+            delete_post_meta($post_id, $camp);
+            delete_post_meta($post_id, $urloption);
+            delete_post_meta($post_id, $titleoption);
+        endforeach;
     }
 
     /**
@@ -1069,6 +1217,7 @@ class DeMomentSomTresLanguage {
     /**
      * Updates the relationship on the blog identified by $bloc_id with info on $_POST
      * @param integer $post_id
+     * @deprecated since version 3.1
      */
     function metaboxRelationshipReciprocalUpdate($post_id) {
         global $blog_id;
@@ -1096,17 +1245,21 @@ class DeMomentSomTresLanguage {
                 );
             endforeach;
             foreach ($blocs as $b):
-                if ($blog_id != $b['blog_id']):
-                    switch_to_blog($b['blog_id']);
-                    foreach ($traduccions as $key => $a):
-                        $camp = $this->metaboxRelationshipFieldName($key);
-                        $urloption = $this->metaboxRelationshipURLName($key);
-                        $titleoption = $this->metaboxRelationshipTitleName($key);
-                        update_post_meta($traduccions[$b['blog_id']]['post'], $camp, $a['post']);
-                        update_post_meta($traduccions[$b['blog_id']]['post'], $urloption, $a['url']);
-                        update_post_meta($traduccions[$b['blog_id']]['post'], $titleoption, $a['title']);
-                    endforeach;
-                    restore_current_blog();
+                if ($b['language'] != ''):
+                    if ($blog_id != $b['blog_id']):
+//                        echo 'Inici blog ' . $b['language'] . '<br/>';
+                        switch_to_blog($b['blog_id']);
+                        foreach ($traduccions as $key => $a):
+                            $camp = $this->metaboxRelationshipFieldName($key);
+                            $urloption = $this->metaboxRelationshipURLName($key);
+                            $titleoption = $this->metaboxRelationshipTitleName($key);
+                            update_post_meta($traduccions[$b['blog_id']]['post'], $camp, $a['post']);
+                            update_post_meta($traduccions[$b['blog_id']]['post'], $urloption, $a['url']);
+                            update_post_meta($traduccions[$b['blog_id']]['post'], $titleoption, $a['title']);
+                        endforeach;
+                        restore_current_blog();
+//                        echo 'Fi blog ' . $b['language'] . '<br/>';
+                    endif;
                 endif;
             endforeach;
         endif;
@@ -1163,7 +1316,7 @@ class DeMomentSomTresLanguage {
                     $urlOption = $this->metaboxRelationshipURLName($b['blogid']);
                     $url = get_post_meta($post->ID, $urlOption, true);
                     if ($url != ''):
-                        $links.='<link rel="alternate" hreflang="'.$b['locale'].'" href="'.$url.'"/>';
+                        $links.='<link rel="alternate" hreflang="' . $b['locale'] . '" href="' . $url . '"/>';
                     endif;
                 endif;
             endif;

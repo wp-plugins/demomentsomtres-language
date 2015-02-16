@@ -86,6 +86,10 @@ You need to enter Network manager > Language and setup the groups.
 Group name can be any string or number and every group must contain a Landing site and as much languages as you want.
 
 == Changelog ==
+= 3.1 =
+* Create translations from within a post
+* Edit button to open translations in edit mode on other windows
+
 = 3.0 =
 * global options used in order to reduce database and load
 * Hreflang links added
