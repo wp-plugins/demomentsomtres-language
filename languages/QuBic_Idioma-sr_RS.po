@@ -1,0 +1,125 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: QuBic_Idioma v0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-11-25 09:04+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ QuBic_Idioma
+#: admin.php:18
+msgid "Language"
+msgstr "Jezik"
+
+# @ QuBic_Idioma
+#: admin.php:21
+msgid "Post Types"
+msgstr "Vrste postova"
+
+# @ QuBic_Idioma
+#: admin.php:25
+msgid "Current Settings"
+msgstr "Tekuće postavke"
+
+# @ QuBic_Idioma
+#: admin.php:28
+msgid "Language text"
+msgstr "Jezik teksta"
+
+# @ QuBic_Idioma
+#: admin.php:31
+msgid "Order"
+msgstr "Redosled"
+
+# @ QuBic_Idioma
+#: admin.php:33 admin.php:47
+msgid "MultiLanguage"
+msgstr "Višejezični"
+
+# @ QuBic_Idioma
+#: admin.php:51
+msgid "Save Changes"
+msgstr "Sačuvaj izmene"
+
+# @ QuBic_Idioma
+#: admin.php:62
+msgid "Language settings for current blog."
+msgstr "Jezičke postavke za tekući blog."
+
+# @ QuBic_Idioma
+#: admin.php:75
+msgid "Multisite set."
+msgstr "Multisite podešen."
+
+# @ QuBic_Idioma
+#: admin.php:77
+msgid "Multisite not set."
+msgstr "Multisite nije podešen."
+
+# @ QuBic_Idioma
+#: admin.php:79
+msgid "This plugin needs a network set in order to work."
+msgstr "Ovaj plugin zahteva podešenu mrežu da bi radio."
+
+# @ QuBic_Idioma
+#: admin.php:125
+msgid "Post types that can be translated."
+msgstr "Vrste postova koje mogu da se prevedu."
+
+# @ QuBic_Idioma
+#: functions.php:95
+msgid "Translations"
+msgstr "Prevodi"
+
+# @ QuBic_Idioma
+#: functions.php:112
+msgid "You can set the relationship between the content and its translations."
+msgstr "Možete podesiti odnos između sadržaja i njegovih prevoda."
+
+# @ QuBic_Idioma
+#: functions.php:124
+msgid "Reciprocal update?"
+msgstr "Ažuriraj recipročno?"
+
+# @ QuBic_Idioma
+#: functions.php:126
+msgid ""
+"If you select this option, all refered translations will be also linked to "
+"the current one. You would not need to update the relationship in other "
+"blogs."
+msgstr ""
+"Ako odaberete ovu opciju, svi navedeni prevodi biće, takođe, povezani sa "
+"tekućim prevodom. Nećete morati da ažurirate odnos na drugim blogovima."
+
+# @ QuBic_Idioma
+#: functions.php:152
+msgid "N/A"
+msgstr "N/A"
+
+# @ QuBic_Idioma
+#: functions.php:163
+msgid "No translation"
+msgstr "Nema prevoda"
+
+# @ QuBic_Idioma
+#: widgets.php:22
+msgid "Shows a language selector as an accessible selectbox based in jQuery"
+msgstr "Prikazuje birač jezika kao dostupan okvir za odabir na osnovu jQuery "
+
+# @ QuBic_Idioma
+#: widgets.php:24
+msgid "Language chooser"
+msgstr "birača jezika."
